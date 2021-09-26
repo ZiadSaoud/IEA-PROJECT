@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SmartAgent.Controller">
+   <children>
+      <BorderPane layoutX="320.0" layoutY="137.0" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #102f50;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="exit" fitHeight="30.0" fitWidth="30.0" layoutX="752.0" layoutY="10.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+                     <image>
+                        <Image url="@../../images/close-window.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="7.0" prefHeight="40.0" prefWidth="280.0" text="IEA PROJECT" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="2.0">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="9.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="5.0">
+                     <image>
+                        <Image url="@../../images/artificial-intelligence.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <StackPane fx:id="UIstack" prefHeight="750.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane fx:id="welcomePane" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #0a4969;">
+                     <children>
+                        <Rectangle fill="WHITE" height="750.0" layoutX="600.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0" />
+                        <ComboBox fx:id="selectHeight" layoutX="851.0" layoutY="452.0" prefHeight="30.0" prefWidth="70.0" promptText="H" style="-fx-background-color: white; -fx-border-radius: 7; -fx-border-color: #0a4969; -fx-border-width: 2;" />
+                        <ComboBox fx:id="selectWidth" layoutX="850.0" layoutY="504.0" prefHeight="30.0" prefWidth="70.0" promptText="W" style="-fx-border-radius: 7; -fx-background-color: white; -fx-border-color: #0a4969; -fx-border-width: 2;" />
+                        <Button id="envbut" fx:id="createEnv" layoutX="686.0" layoutY="564.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="225.0" style="-fx-background-color: #0a4969; -fx-border-radius: 90px; -fx-alignment: center; -fx-background-radius: 90px;" text="Create Environment" textFill="WHITE">
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" height="5.91" offsetX="2.0" offsetY="2.0" radius="2.455" spread="0.2" width="5.91" />
+                           </effect>
+                           <font>
+                              <Font name="Times New Roman" size="21.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="274.0" fitWidth="309.0" layoutX="656.0" layoutY="171.0">
+                           <image>
+                              <Image url="@../../images/iea.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="287.0" fitWidth="288.0" layoutX="48.0" layoutY="170.0">
+                           <image>
+                              <Image url="@../../images/image.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="31.0" layoutY="44.0" prefHeight="66.0" prefWidth="431.0" text="Welcome to the next generation" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="26.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="33.0" layoutY="95.0" prefHeight="66.0" prefWidth="425.0" text="of smart vacuum cleaners" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="26.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="610.0" layoutY="124.0" prefHeight="60.0" prefWidth="375.0" text="Let's start by creating the Environment" textFill="#0a4969">
+                           <font>
+                              <Font name="Times New Roman" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="687.0" layoutY="450.0" prefHeight="30.0" prefWidth="161.0" text="Select Height:" textFill="#0a4969">
+                           <font>
+                              <Font name="Times New Roman" size="27.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="686.0" layoutY="496.0" prefHeight="47.0" prefWidth="152.0" text="Select Width:" textFill="#0a4969">
+                           <font>
+                              <Font name="Times New Roman" size="27.0" />
+                           </font>
+                        </Label>
+                        <Line endX="346.02874755859375" endY="3.0517578125E-5" layoutX="205.0" layoutY="449.0" startX="-206.99998474121094" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="-7.5423126220703125" endY="268.0" layoutX="106.0" layoutY="482.0" startX="-40.447296142578125" startY="-128.03909301757812" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="32.163970947265625" endY="261.0" layoutX="362.0" layoutY="489.0" startX="-40.44732666015625" startY="-138.78469848632812" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="15.569061279296875" endY="264.0" layoutX="286.0" layoutY="486.0" startX="-40.202545166015625" startY="-81.76043701171875" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="-7.4800872802734375" endY="285.0" layoutX="206.0" layoutY="465.0" startX="-55.27099609375" startY="-118.5" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="287.30389404296875" endY="3.0517578125E-5" layoutX="247.0" layoutY="348.0" startX="-249.0" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="293.8128662109375" layoutX="284.0" layoutY="613.0" startX="-288.0" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="18.4251708984375" endY="27.420379638671875" layoutX="518.0" layoutY="317.0" startX="18.4251708984375" startY="-313.41571044921875" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="118.0" endY="239.0" layoutX="482.0" layoutY="511.0" startX="54.4251708984375" startY="-165.07962036132812" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="31.999969482421875" endY="363.0" layoutX="468.0" layoutY="387.0" startX="-45.460174560546875" startY="-37.499969482421875" stroke="WHITE" strokeWidth="3.0" />
+                        <Line endX="-37.454345703125" endY="137.43869018554688" layoutX="275.0" layoutY="235.0" startX="-42.673858642578125" startY="109.7412109375" stroke="WHITE" strokeWidth="3.0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="pane2" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: gray;">
+                     <children>
+                        <VBox prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: #0a4969;">
+                           <children>
+                              <Button id="MenuButtons" fx:id="envButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Environment" textFill="WHITE">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
+                              </Button>
+                              <Button id="MenuButtons" fx:id="algoButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Algorithm" textFill="WHITE">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
+                              </Button>
+                              <Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Settings" textFill="WHITE">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
+                              </Button>
+                              <Button id="MenuButtons" fx:id="aboutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="About" textFill="WHITE">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <StackPane fx:id="stackG" layoutX="200.0" prefHeight="750.0" prefWidth="800.0">
+                           <children>
+                              <Pane fx:id="gridPane" prefHeight="750.0" prefWidth="800.0" />
+                              <Pane fx:id="algoPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" />
+                              <Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: red;" />
+                              <Pane fx:id="settingsPane1" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: blue;" />
+                           </children></StackPane>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

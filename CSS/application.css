@@ -1,0 +1,49 @@
+#MenuButtons{
+	-fx-background-color: transparent;
+	-fx-alignment: center_left;
+}
+
+#MenuButtons:hover{
+	-fx-border-width: 0.0px 0.0px 0px 5px;
+	-fx-border-color:white;
+}
+
+#tiles{
+	-fx-pref-width: 50px;
+	-fx-pref-height: 50px;
+	-fx-background-position: center;
+	-fx-background-color: white;
+	-fx-border-radius: 0px;
+	-fx-background-repeat: no-repeat;
+}
+#clean{
+	-fx-pref-width: 100px;
+	-fx-pref-height:30px;
+	-fx-background-color: #0a4969;
+	-fx-text-fill: white;
+	-fx-background-radius: 7px;
+	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
+	
+}
+#rect{
+		-fx-fill: darkgray;
+}
+#label{
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
+	-fx-font-family:  timesnewroman;
+}
+#next{
+	-fx-pref-width: 100px;
+	-fx-pref-height:30px;
+	-fx-background-color: #0a4969;
+	-fx-text-fill: white;
+	-fx-background-radius: 7px;
+	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
+}
+#agent{
+	-fx-fill: red;
+	-fx-stroke: black;
+	-fx-stroke-width: 3px;
+}
+

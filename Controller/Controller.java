@@ -162,24 +162,28 @@ public class Controller implements Initializable {
 										tiles[w][h].setUp(null);
 										if(!tiles[w+1][h].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w+1][h],1));
+											tiles[w][h].setDown(tiles[w+1][h]);
 										}//set down.
 									}
 									if(h==0) {
 										tiles[w][h].setLeft(null);
 										if(!tiles[w][h+1].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w][h+1],1));
+											tiles[w][h].setRight(tiles[w][h+1]);
 										}//set right.
 									}
 									if(w==(height-1)) {
 										tiles[w][h].setDown(null);
 										if(!tiles[w-1][h].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w-1][h],1));
+											tiles[w][h].setUp(tiles[w-1][h]);
 										}//set up
 									}
 									if(h==(width-1)) {
 										tiles[w][h].setRight(null);
 										if(!tiles[w][h-1].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w][h-1],1));
+											tiles[w][h].setLeft(tiles[w][h-1]);
 										}//set left
 									}
 									if(w>0 && w < (height-1)) {

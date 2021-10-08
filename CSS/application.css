@@ -42,8 +42,18 @@
 	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
 }
 #agent{
-	-fx-fill: red;
-	-fx-stroke: black;
+	-fx-fill: Red ;
+	-fx-stroke: black ;
 	-fx-stroke-width: 3px;
+}
+#settingsline{
+	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
+}
+#settingsline{
+	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
+}
+#ColorLine{
+	
+	-fx-effect: dropshadow(gaussian,black,10,0.2,2,2);
 }
 

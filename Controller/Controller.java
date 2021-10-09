@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.ResourceBundle;
-import java.util.Stack;
-import javafx.animation.Interpolator;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +17,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,7 +30,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.util.Duration;
 
 public class Controller implements Initializable {
 	//FXML variables
@@ -55,6 +55,24 @@ public class Controller implements Initializable {
     private Button settingsButton;
     @FXML
     private Button aboutButton;
+    @FXML
+    private CheckBox checkSound;
+    @FXML
+    private ImageView SoundImage;
+    @FXML
+    private ColorPicker ColorChooser;
+    @FXML
+    private Label TestingLabel;
+    @FXML
+    private ColorPicker BorderColorChooser;
+    @FXML
+    private Pane settingsPane;
+
+    
+    @FXML
+    private CheckBox PathCheck;
+  
+
     
     //USER defined Variables
     private int height=0;
@@ -68,14 +86,17 @@ public class Controller implements Initializable {
     private boolean disable = false;
     private tile[][] tiles;
     private ArrayList<tile> destination;
+    private Color AgentColor;
+    private Color BorderColor;
     private tile sourceNode;
-    private HashMap<tile,ArrayList<Edge>> ad_list;
-    private ArrayList<tile> path;
     private Shape Agent;
-    private int agentX=0;
-    private int agentY=0;
-    private ArrayList<ArrayList<tile>> animations;
-    private int index =0;
+    private boolean ColorChosen=false;
+    private boolean BorderChosen=false;
+    Image off=new Image("offnew.PNG");
+    Image on=new  Image("onnew.PNG");
+    private boolean animate=false;
+    private HashMap<tile,ArrayList<Edge>> ad_list;
+  
     
     
 	@Override
@@ -125,6 +146,7 @@ public class Controller implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				System.out.println("env created");
+				setDefaultAgent(80,255);
 				if(height==0 || width ==0) {
 					//please select h and w;
 				}else {
@@ -146,6 +168,85 @@ public class Controller implements Initializable {
 							gridPane.getChildren().add(tiles[i][j] = new tile(j*54+bx,by+i*54,"tiles", Controller.this));
 						}
 					}
+					ColorChooser.setPromptText("Agent Color");
+					ColorChooser.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent arg0) {
+							AgentColor=ColorChooser.getValue();
+							ColorChooser.setPromptText("Agent Color");
+							System.out.print(AgentColor);
+							ColorChosen=true;
+							Circle c=new Circle(40,Color.RED);
+							Rectangle r=new Rectangle(40,40);
+							r.setLayoutY(c.getLayoutY()-40);
+							Shape SubAgent = Shape.subtract(c, r);
+							SubAgent.setLayoutX(80);
+							SubAgent.setLayoutY(255);
+							SubAgent.setFill(AgentColor);
+							SubAgent.setStroke(BorderColor);
+							SubAgent.setStrokeWidth(2);
+							settingsPane.getChildren().add(SubAgent);
+							if(Agent!=null) {
+								if(BorderChosen) {
+							Agent.setFill(AgentColor);
+							Agent.setStroke(BorderColor);
+							Agent.setStrokeWidth(2);}
+								else {
+									Agent.setFill(AgentColor);
+									Agent.setStroke(Color.BLACK);
+									Agent.setStrokeWidth(2);
+								}
+							}
+						}
+						
+					});
+					BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent arg0) {
+							BorderColor=BorderColorChooser.getValue();
+							BorderColorChooser.setPromptText("Border Color");
+							System.out.print(BorderColor);
+							BorderChosen=true;
+							Circle c=new Circle(40,Color.RED);
+							Rectangle r=new Rectangle(40,40);
+							r.setLayoutY(c.getLayoutY()-40);
+							Shape SubAgent = Shape.subtract(c, r);
+							SubAgent.setLayoutX(80);
+							SubAgent.setLayoutY(255);
+							SubAgent.setFill(AgentColor);
+							SubAgent.setStroke(BorderColor);
+							SubAgent.setStrokeWidth(2);
+							settingsPane.getChildren().add(SubAgent);
+							if(Agent!=null) {
+								if(ColorChosen) {
+							Agent.setFill(AgentColor);
+							Agent.setStroke(BorderColor);
+							Agent.setStrokeWidth(2);}
+								else {
+								Agent.setFill(Color.RED);
+								Agent.setStroke(BorderColor);
+								Agent.setStrokeWidth(2);
+							}}
+							
+						}
+					});
+					  checkSound.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent arg0) {
+							if(checkSound.isSelected()) {
+								SoundImage.setImage(off);
+						}else {
+							SoundImage.setImage(on);
+						}
+					}});
+					  PathCheck.setOnAction(new EventHandler<ActionEvent>() {
+						  public void handle(ActionEvent arg0) {
+							  if(PathCheck.isSelected()) {
+								  animate=true;
+								  System.out.println(animate);
+							  }else {
+								  animate=false;
+								  System.out.println(animate);
+							  }
+						  }
+					  });
 					
 					System.out.println(bx);
 					System.out.println(by);
@@ -175,28 +276,24 @@ public class Controller implements Initializable {
 										tiles[w][h].setUp(null);
 										if(!tiles[w+1][h].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w+1][h],1));
-											tiles[w][h].setDown(tiles[w+1][h]);
 										}//set down.
 									}
 									if(h==0) {
 										tiles[w][h].setLeft(null);
 										if(!tiles[w][h+1].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w][h+1],1));
-											tiles[w][h].setRight(tiles[w][h+1]);
 										}//set right.
 									}
 									if(w==(height-1)) {
 										tiles[w][h].setDown(null);
 										if(!tiles[w-1][h].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w-1][h],1));
-											tiles[w][h].setUp(tiles[w-1][h]);
 										}//set up
 									}
 									if(h==(width-1)) {
 										tiles[w][h].setRight(null);
 										if(!tiles[w][h-1].getWall()) {
 											ad_list.get(tiles[w][h]).add(new Edge(tiles[w][h-1],1));
-											tiles[w][h].setLeft(tiles[w][h-1]);
 										}//set left
 									}
 									if(w>0 && w < (height-1)) {
@@ -226,92 +323,9 @@ public class Controller implements Initializable {
 								}
 							}
 							}
-							SequentialTransition s = new SequentialTransition();
-							
-							animations = new ArrayList<ArrayList<tile>>();
 							//after for loop
-							for(tile N: destination) {
-								
-								boolean c=BFS(sourceNode,N);
-								System.out.println(c);
-								if(c) {
-								path=backTrack(sourceNode, N);
-								animations.add(path);
-								}else {
-									continue;
-								}
-								sourceNode=N;
-								resetWeights();
-							//animation
-							clean.setDisable(true);
 							
-								for(int a=0;a<path.size()-1;a++) {
-								TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3),Agent);
-								animation.setInterpolator(Interpolator.LINEAR);
-								tile next = path.get(a+1);
-								tile currentNode = path.get(a);
-								if(a==0) {
-									PauseTransition pause = new PauseTransition(Duration.seconds(0.01));
-									pause.setOnFinished(new EventHandler<ActionEvent>() {
-
-										@Override
-										public void handle(ActionEvent arg0) {
-											for(tile p: animations.get(index)) {
-												if(p.isDurty()) {
-													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: orange");
-												}else {
-												System.out.println("hello");
-												p.setStyle("-fx-background-color:orange");
-												}
-											}
-											
-										}
-									});
-									s.getChildren().add(pause);
-								}
-								if(a==path.size()-2) {
-									animation.setOnFinished(new EventHandler<ActionEvent>() {
-
-										@Override
-										public void handle(ActionEvent arg0) {
-											next.setStyle("-fx-background-image: none; -fx-background-color:orange");
-											next.setDurty(false);
-											for(tile p: animations.get(index)) {
-												if(p.isDurty()) {
-													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
-												}else {
-												System.out.println("hello");
-												p.setStyle("-fx-background-color:white");
-												}
-											}
-											index++;
-										}
-										
-									});
-								}
-								if(currentNode.getUp()==next) {
-									agentY=agentY-54;
-									animation.setToY(agentY);
-									s.getChildren().add(animation);
-								}
-								if(currentNode.getDown()==next) {
-									agentY=agentY+54;
-									animation.setToY(agentY);
-									s.getChildren().add(animation);
-								}
-								if(currentNode.getLeft()==next) {
-									agentX = agentX -54;
-									animation.setToX(agentX);
-									s.getChildren().add(animation);
-								}
-								if(currentNode.getRight()==next) {
-									agentX = agentX +54;
-									animation.setToX(agentX);
-									s.getChildren().add(animation);
-								}
-							}
-							}
-							s.play();
+							
 						}
 					});
 					
@@ -424,12 +438,46 @@ public class Controller implements Initializable {
 		Agent = Shape.subtract(c, r);
 		Agent.setLayoutX(x);
 		Agent.setLayoutY(y);
-		Agent.setId("agent");
+		
+		if(ColorChosen && BorderChosen) {
+			Agent.setStroke(BorderColor);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(AgentColor);}
+		
+		else if(!ColorChosen && BorderChosen) {
+			Agent.setStroke(BorderColor);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(Color.RED);
+		}else if(ColorChosen && !BorderChosen) {
+			Agent.setStroke(Color.BLACK);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(AgentColor);
+		}else {
+		
+	
+			Agent.setFill(Color.RED);
+			Agent.setStroke(Color.BLACK);
+			Agent.setStrokeWidth(2);
+		}
 		gridPane.getChildren().add(Agent);
 		disable=true;
 		sourceNode = agent;
 	}
-	 public boolean checkAgent() {
+	
+	public void setDefaultAgent(int x,int y) {
+		Circle c = new Circle(40,Color.RED);
+		Rectangle r = new Rectangle(40,40);
+		r.setLayoutY(c.getLayoutY()-40);
+		Shape DefaultAgent = Shape.subtract(c, r);
+		DefaultAgent.setLayoutX(x);
+		DefaultAgent.setLayoutY(y);
+		DefaultAgent.setFill(Color.RED);
+	     DefaultAgent.setStroke(Color.BLACK);
+		DefaultAgent.setStrokeWidth(2);
+		settingsPane.getChildren().add(DefaultAgent);
+	}
+	
+		 public boolean checkAgent() {
 		return selectAgent;
 	}
 	 
@@ -454,46 +502,22 @@ public class Controller implements Initializable {
 			l.setStrokeWidth(3);
 			return l;
 	 }
-	 private boolean BFS(tile start,tile destination) {
-		 ArrayList<tile> arr = new ArrayList<tile>();
-		 PriorityQueue<tile> q = new PriorityQueue<tile>();
-		 start.setW(0);
-		 q.add(start);
-		 while(!q.isEmpty()) {
-			 tile v= q.peek();
-			 ArrayList<Edge> children = ad_list.get(v);
-			 for(Edge e: children) {
-				 if(!arr.contains(e.getDest())) {
-					 int cw = e.getDest().getW();
-					 int ccw = v.getW()+e.getWeight();
-					 if(cw >ccw) {
-					 e.getDest().setW(ccw);	
-					}
-					q.add(e.getDest());	
-				 }
-			 }
-			 if(v==destination) {
-				 return true;
-			 }else {
-				 for(Edge e: children) {
-					 if(e.getDest()==destination) {
-						 return true;
-					 }
-				 }
-			 }
-			 arr.add(q.poll());
-		 }
-		 return false;
-	 }
-	 private boolean Dantzig(tile s,tile d) {
+	
+	 public tile Dantzig(tile s,tile d) {
 			ArrayList<tile> arr = new ArrayList<tile>();//visited
 			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
 			s.setW(0);//initialize source weight.
 			arr.add(s);
 			q.add(s);
 			int minW;
-			while(arr.size()<=ad_list.size()) {
+			while(ad_list.size()!=arr.size() && !q.isEmpty() ) {
+				if(q.contains(s)) {
+					q.remove(s);
+					System.out.println("hello");
+				}
+				System.out.print("Current Nodes: ");
 			for(tile n: arr) {
+				//System.out.print(n.getName()+n.getW()+"\t");
 				for(Edge e: ad_list.get(n)) {
 					if(!arr.contains(e.getDest())) {
 						int cw = e.getDest().getW();
@@ -507,93 +531,26 @@ public class Controller implements Initializable {
 					}
 				}
 			}
+			System.out.println();
 				tile removedNode = q.poll();
 				minW = removedNode.getW();
 				arr.add(removedNode);
+				//System.out.print("removed Nodes: "+removedNode.getName()+removedNode.getW()+"\t");
 				while(!q.isEmpty() && q.peek().getW()==minW) {
 					removedNode = q.poll();
+					//System.out.print(removedNode.getName()+"\t");
 					arr.add(removedNode);
 				}
+				System.out.println();
 				for(tile test: arr) {
 					if(test==d) {
-						return true;
+						return d;
 					}
 				}
 			}
-			System.out.println(arr.size());
-			return false;	
-		}
-	 private boolean BellmanFord(tile s,tile d) {
-			ArrayList<tile> arr = new ArrayList<tile>();//visited
-			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
-			s.setW(0);//initialize source weight.
-			q.add(s); //Add source node to frontier
-			
-			while(!q.isEmpty() && arr.size()<=ad_list.size()) {
-				tile v = q.peek();
-				ArrayList<Edge> children = ad_list.get(v);
-				for(Edge e: children) {
-					if(!arr.contains(e.getDest())) {
-					int cw = e.getDest().getW();
-					int ccw = v.getW()+e.getWeight();
-					if(cw >ccw) {
-						e.getDest().setW(ccw);	
-					}
-					if(!q.contains(e.getDest())) {
-						q.add(e.getDest());
-						}
-				}
-			}
-				for(Edge e: children) {
-					for(Edge n:ad_list.get(e.getDest())) {
-						if(!arr.contains(n.getDest())) {
-						if(n.getDest().getW()!=Integer.MAX_VALUE) {
-						int cw_1 = e.getDest().getW();
-						int ccw_1 = v.getW()+e.getWeight();
-						if(cw_1 >ccw_1) {
-							e.getDest().setW(ccw_1);	
-						}
-					}
-					}
-				}
-				}
-				arr.add(q.poll());
-			}
-			for(tile n:arr) {
-				if(n==d) {
-					return true;
-				}
-			}
-			return false;
+			return s;	
 		}
 	 
-	 private void resetWeights() {
-		 for(int i=0;i<width;i++) {
-			 for(int j=0;j<height;j++) {
-				 tiles[j][i].setW(Integer.MAX_VALUE);
-			 }
-		 }
-	 }
-	 
-	 private ArrayList<tile> backTrack(tile start,tile destination){
-		 ArrayList<tile> out = new ArrayList<tile>();
-		 Stack<tile> path = new Stack<tile>();
-		 path.add(destination);
-		 tile current = destination;
-		 while(start!=current) {
-			 ArrayList<Edge> children = ad_list.get(current);
-			 for(Edge e:children) {
-				 if(e.getWeight()+e.getDest().getW() == current.getW()) {
-					 path.add(e.getDest());
-					 current = e.getDest();
-					 break;
-				 }
-			 }
-		 }
-		 while(!path.isEmpty()) {
-			out.add(path.pop());	
-		}
-			return out;
-	 }
+	
 	
 }

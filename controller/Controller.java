@@ -98,8 +98,8 @@ public class Controller implements Initializable {
     
     private boolean ColorChosen=false;
     private boolean BorderChosen=false;
-    Image off=new Image("offnew.PNG");
-    Image on=new  Image("onnew.PNG");
+    Image off=new Image("off.PNG");
+    Image on=new  Image("on.PNG");
     private boolean animate=false;
 	
     

@@ -159,17 +159,17 @@ public class Controller implements Initializable {
 				SubAgent.setLayoutY(255);
 				SubAgent.setFill(AgentColor);
 				SubAgent.setStroke(BorderColor);
-				SubAgent.setStrokeWidth(2);
+				SubAgent.setStrokeWidth(3);
 				settingsPane.getChildren().add(SubAgent);
 				if(Agent!=null) {
 					if(BorderChosen) {
 				Agent.setFill(AgentColor);
 				Agent.setStroke(BorderColor);
-				Agent.setStrokeWidth(2);}
+				Agent.setStrokeWidth(3);}
 					else {
 						Agent.setFill(AgentColor);
 						Agent.setStroke(Color.BLACK);
-						Agent.setStrokeWidth(2);
+						Agent.setStrokeWidth(3);
 					}
 				}
 			}
@@ -189,17 +189,17 @@ public class Controller implements Initializable {
 				SubAgent.setLayoutY(255);
 				SubAgent.setFill(AgentColor);
 				SubAgent.setStroke(BorderColor);
-				SubAgent.setStrokeWidth(2);
+				SubAgent.setStrokeWidth(3);
 				settingsPane.getChildren().add(SubAgent);
 				if(Agent!=null) {
 					if(ColorChosen) {
 				Agent.setFill(AgentColor);
 				Agent.setStroke(BorderColor);
-				Agent.setStrokeWidth(2);}
+				Agent.setStrokeWidth(3);}
 					else {
 					Agent.setFill(Color.RED);
 					Agent.setStroke(BorderColor);
-					Agent.setStrokeWidth(2);
+					Agent.setStrokeWidth(3);
 				}}
 				
 			}

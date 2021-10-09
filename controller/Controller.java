@@ -55,8 +55,22 @@ public class Controller implements Initializable {
     private Button settingsButton;
     @FXML
     private Button aboutButton;
+    @FXML                           //New variables added by Elie
+    private CheckBox checkSound;
+    @FXML
+    private ImageView SoundImage;
+    @FXML
+    private ColorPicker ColorChooser;
+    @FXML
+    private Label TestingLabel;
+    @FXML
+    private ColorPicker BorderColorChooser;
+    @FXML
+    private Pane settingsPane;
+    @FXML
+    private CheckBox PathCheck;
     
-    //USER defined Variables
+	//USER defined Variables
     private int height=0;
     private int width =0;
     private int bx = 0;
@@ -76,6 +90,15 @@ public class Controller implements Initializable {
     private int agentY=0;
     private ArrayList<ArrayList<tile>> animations;
     private int index =0;
+    private Color AgentColor;
+    private Color BorderColor;
+     private Shape Agent;
+    private boolean ColorChosen=false;
+    private boolean BorderChosen=false;
+    Image off=new Image("offnew.PNG");
+    Image on=new  Image("onnew.PNG");
+    private boolean animate=false;
+	
     
     
 	@Override
@@ -119,6 +142,84 @@ public class Controller implements Initializable {
 				width = Integer.parseInt(selectWidth.getSelectionModel().getSelectedItem());
 			}
 		});
+		ColorChooser.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent arg0) {
+				AgentColor=ColorChooser.getValue();
+				ColorChooser.setPromptText("Agent Color");
+				System.out.print(AgentColor);
+				ColorChosen=true;
+				Circle c=new Circle(40,Color.RED);
+				Rectangle r=new Rectangle(40,40);
+				r.setLayoutY(c.getLayoutY()-40);
+				Shape SubAgent = Shape.subtract(c, r);
+				SubAgent.setLayoutX(80);
+				SubAgent.setLayoutY(255);
+				SubAgent.setFill(AgentColor);
+				SubAgent.setStroke(BorderColor);
+				SubAgent.setStrokeWidth(2);
+				settingsPane.getChildren().add(SubAgent);
+				if(Agent!=null) {
+					if(BorderChosen) {
+				Agent.setFill(AgentColor);
+				Agent.setStroke(BorderColor);
+				Agent.setStrokeWidth(2);}
+					else {
+						Agent.setFill(AgentColor);
+						Agent.setStroke(Color.BLACK);
+						Agent.setStrokeWidth(2);
+					}
+				}
+			}
+			
+		});
+		BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent arg0) {
+				BorderColor=BorderColorChooser.getValue();
+				BorderColorChooser.setPromptText("Border Color");
+				System.out.print(BorderColor);
+				BorderChosen=true;
+				Circle c=new Circle(40,Color.RED);
+				Rectangle r=new Rectangle(40,40);
+				r.setLayoutY(c.getLayoutY()-40);
+				Shape SubAgent = Shape.subtract(c, r);
+				SubAgent.setLayoutX(80);
+				SubAgent.setLayoutY(255);
+				SubAgent.setFill(AgentColor);
+				SubAgent.setStroke(BorderColor);
+				SubAgent.setStrokeWidth(2);
+				settingsPane.getChildren().add(SubAgent);
+				if(Agent!=null) {
+					if(ColorChosen) {
+				Agent.setFill(AgentColor);
+				Agent.setStroke(BorderColor);
+				Agent.setStrokeWidth(2);}
+					else {
+					Agent.setFill(Color.RED);
+					Agent.setStroke(BorderColor);
+					Agent.setStrokeWidth(2);
+				}}
+				
+			}
+		});
+		checkSound.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent arg0) {
+				if(checkSound.isSelected()) {
+					SoundImage.setImage(off);
+			}else {
+				SoundImage.setImage(on);
+			}
+		}});
+		  PathCheck.setOnAction(new EventHandler<ActionEvent>() {
+			  public void handle(ActionEvent arg0) {
+				  if(PathCheck.isSelected()) {
+					  animate=true;
+					  System.out.println(animate);
+				  }else {
+					  animate=false;
+					  System.out.println(animate);
+				  }
+			  }
+		  });
 		
 		createEnv.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -424,10 +525,42 @@ public class Controller implements Initializable {
 		Agent = Shape.subtract(c, r);
 		Agent.setLayoutX(x);
 		Agent.setLayoutY(y);
+		if(ColorChosen && BorderChosen) {
+			Agent.setStroke(BorderColor);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(AgentColor);}
+		
+		else if(!ColorChosen && BorderChosen) {
+			Agent.setStroke(BorderColor);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(Color.RED);
+		}else if(ColorChosen && !BorderChosen) {
+			Agent.setStroke(Color.BLACK);
+			Agent.setStrokeWidth(2);
+		Agent.setFill(AgentColor);
+		}else {
+		
+	
+			Agent.setFill(Color.RED);
+			Agent.setStroke(Color.BLACK);
+			Agent.setStrokeWidth(2);
+		}
 		Agent.setId("agent");
 		gridPane.getChildren().add(Agent);
 		disable=true;
 		sourceNode = agent;
+	}
+	public void setDefaultAgent(int x,int y) {
+		Circle c = new Circle(40,Color.RED);
+		Rectangle r = new Rectangle(40,40);
+		r.setLayoutY(c.getLayoutY()-40);
+		Shape DefaultAgent = Shape.subtract(c, r);
+		DefaultAgent.setLayoutX(x);
+		DefaultAgent.setLayoutY(y);
+		DefaultAgent.setFill(Color.RED);
+	     DefaultAgent.setStroke(Color.BLACK);
+		DefaultAgent.setStrokeWidth(2);
+		settingsPane.getChildren().add(DefaultAgent);
 	}
 	 public boolean checkAgent() {
 		return selectAgent;

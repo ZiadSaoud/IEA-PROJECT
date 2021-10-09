@@ -4,7 +4,13 @@ package SmartAgent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.ResourceBundle;
+import java.util.Stack;
+import javafx.animation.Interpolator;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 public class Controller implements Initializable {
 	//FXML variables
@@ -63,6 +70,12 @@ public class Controller implements Initializable {
     private ArrayList<tile> destination;
     private tile sourceNode;
     private HashMap<tile,ArrayList<Edge>> ad_list;
+    private ArrayList<tile> path;
+    private Shape Agent;
+    private int agentX=0;
+    private int agentY=0;
+    private ArrayList<ArrayList<tile>> animations;
+    private int index =0;
     
     
 	@Override
@@ -213,9 +226,92 @@ public class Controller implements Initializable {
 								}
 							}
 							}
+							SequentialTransition s = new SequentialTransition();
+							
+							animations = new ArrayList<ArrayList<tile>>();
 							//after for loop
+							for(tile N: destination) {
+								
+								boolean c=BFS(sourceNode,N);
+								System.out.println(c);
+								if(c) {
+								path=backTrack(sourceNode, N);
+								animations.add(path);
+								}else {
+									continue;
+								}
+								sourceNode=N;
+								resetWeights();
+							//animation
+							clean.setDisable(true);
 							
-							
+								for(int a=0;a<path.size()-1;a++) {
+								TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3),Agent);
+								animation.setInterpolator(Interpolator.LINEAR);
+								tile next = path.get(a+1);
+								tile currentNode = path.get(a);
+								if(a==0) {
+									PauseTransition pause = new PauseTransition(Duration.seconds(0.01));
+									pause.setOnFinished(new EventHandler<ActionEvent>() {
+
+										@Override
+										public void handle(ActionEvent arg0) {
+											for(tile p: animations.get(index)) {
+												if(p.isDurty()) {
+													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: orange");
+												}else {
+												System.out.println("hello");
+												p.setStyle("-fx-background-color:orange");
+												}
+											}
+											
+										}
+									});
+									s.getChildren().add(pause);
+								}
+								if(a==path.size()-2) {
+									animation.setOnFinished(new EventHandler<ActionEvent>() {
+
+										@Override
+										public void handle(ActionEvent arg0) {
+											next.setStyle("-fx-background-image: none; -fx-background-color:orange");
+											next.setDurty(false);
+											for(tile p: animations.get(index)) {
+												if(p.isDurty()) {
+													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
+												}else {
+												System.out.println("hello");
+												p.setStyle("-fx-background-color:white");
+												}
+											}
+											index++;
+										}
+										
+									});
+								}
+								if(currentNode.getUp()==next) {
+									agentY=agentY-54;
+									animation.setToY(agentY);
+									s.getChildren().add(animation);
+								}
+								if(currentNode.getDown()==next) {
+									agentY=agentY+54;
+									animation.setToY(agentY);
+									s.getChildren().add(animation);
+								}
+								if(currentNode.getLeft()==next) {
+									agentX = agentX -54;
+									animation.setToX(agentX);
+									s.getChildren().add(animation);
+								}
+								if(currentNode.getRight()==next) {
+									agentX = agentX +54;
+									animation.setToX(agentX);
+									s.getChildren().add(animation);
+								}
+							}
+							}
+							s.play();
 						}
 					});
 					
@@ -325,7 +421,7 @@ public class Controller implements Initializable {
 		Circle c = new Circle(25,Color.RED);
 		Rectangle r = new Rectangle(25,25);
 		r.setLayoutY(c.getLayoutY()-25);
-		Shape Agent = Shape.subtract(c, r);
+		Agent = Shape.subtract(c, r);
 		Agent.setLayoutX(x);
 		Agent.setLayoutY(y);
 		Agent.setId("agent");
@@ -357,6 +453,147 @@ public class Controller implements Initializable {
 			l.setEndY(ey);
 			l.setStrokeWidth(3);
 			return l;
+	 }
+	 private boolean BFS(tile start,tile destination) {
+		 ArrayList<tile> arr = new ArrayList<tile>();
+		 PriorityQueue<tile> q = new PriorityQueue<tile>();
+		 start.setW(0);
+		 q.add(start);
+		 while(!q.isEmpty()) {
+			 tile v= q.peek();
+			 ArrayList<Edge> children = ad_list.get(v);
+			 for(Edge e: children) {
+				 if(!arr.contains(e.getDest())) {
+					 int cw = e.getDest().getW();
+					 int ccw = v.getW()+e.getWeight();
+					 if(cw >ccw) {
+					 e.getDest().setW(ccw);	
+					}
+					q.add(e.getDest());	
+				 }
+			 }
+			 if(v==destination) {
+				 return true;
+			 }else {
+				 for(Edge e: children) {
+					 if(e.getDest()==destination) {
+						 return true;
+					 }
+				 }
+			 }
+			 arr.add(q.poll());
+		 }
+		 return false;
+	 }
+	 private boolean Dantzig(tile s,tile d) {
+			ArrayList<tile> arr = new ArrayList<tile>();//visited
+			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
+			s.setW(0);//initialize source weight.
+			arr.add(s);
+			q.add(s);
+			int minW;
+			while(arr.size()<=ad_list.size()) {
+			for(tile n: arr) {
+				for(Edge e: ad_list.get(n)) {
+					if(!arr.contains(e.getDest())) {
+						int cw = e.getDest().getW();
+						int ccw = n.getW()+e.getWeight();
+						if(cw >ccw) {
+							e.getDest().setW(ccw);	
+						}
+						if(!q.contains(e.getDest())) {
+						q.add(e.getDest());
+						}
+					}
+				}
+			}
+				tile removedNode = q.poll();
+				minW = removedNode.getW();
+				arr.add(removedNode);
+				while(!q.isEmpty() && q.peek().getW()==minW) {
+					removedNode = q.poll();
+					arr.add(removedNode);
+				}
+				for(tile test: arr) {
+					if(test==d) {
+						return true;
+					}
+				}
+			}
+			System.out.println(arr.size());
+			return false;	
+		}
+	 private boolean BellmanFord(tile s,tile d) {
+			ArrayList<tile> arr = new ArrayList<tile>();//visited
+			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
+			s.setW(0);//initialize source weight.
+			q.add(s); //Add source node to frontier
+			
+			while(!q.isEmpty() && arr.size()<=ad_list.size()) {
+				tile v = q.peek();
+				ArrayList<Edge> children = ad_list.get(v);
+				for(Edge e: children) {
+					if(!arr.contains(e.getDest())) {
+					int cw = e.getDest().getW();
+					int ccw = v.getW()+e.getWeight();
+					if(cw >ccw) {
+						e.getDest().setW(ccw);	
+					}
+					if(!q.contains(e.getDest())) {
+						q.add(e.getDest());
+						}
+				}
+			}
+				for(Edge e: children) {
+					for(Edge n:ad_list.get(e.getDest())) {
+						if(!arr.contains(n.getDest())) {
+						if(n.getDest().getW()!=Integer.MAX_VALUE) {
+						int cw_1 = e.getDest().getW();
+						int ccw_1 = v.getW()+e.getWeight();
+						if(cw_1 >ccw_1) {
+							e.getDest().setW(ccw_1);	
+						}
+					}
+					}
+				}
+				}
+				arr.add(q.poll());
+			}
+			for(tile n:arr) {
+				if(n==d) {
+					return true;
+				}
+			}
+			return false;
+		}
+	 
+	 private void resetWeights() {
+		 for(int i=0;i<width;i++) {
+			 for(int j=0;j<height;j++) {
+				 tiles[j][i].setW(Integer.MAX_VALUE);
+			 }
+		 }
+	 }
+	 
+	 private ArrayList<tile> backTrack(tile start,tile destination){
+		 ArrayList<tile> out = new ArrayList<tile>();
+		 Stack<tile> path = new Stack<tile>();
+		 path.add(destination);
+		 tile current = destination;
+		 while(start!=current) {
+			 ArrayList<Edge> children = ad_list.get(current);
+			 for(Edge e:children) {
+				 if(e.getWeight()+e.getDest().getW() == current.getW()) {
+					 path.add(e.getDest());
+					 current = e.getDest();
+					 break;
+				 }
+			 }
+		 }
+		 while(!path.isEmpty()) {
+			out.add(path.pop());	
+		}
+			return out;
 	 }
 	
 }

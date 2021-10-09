@@ -361,7 +361,7 @@ public class Controller implements Initializable {
 										@Override
 										public void handle(ActionEvent arg0) {
 											for(tile p: animations.get(index)) {
-												if(p.isDurty()) {
+												if(p.isDirty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: orange");
 												}else {
 												System.out.println("hello");
@@ -381,7 +381,7 @@ public class Controller implements Initializable {
 											next.setStyle("-fx-background-image: none; -fx-background-color:orange");
 											next.setDirty(false);
 											for(tile p: animations.get(index)) {
-												if(p.isDurty()) {
+												if(p.isDirty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
 												}else {
 												System.out.println("hello");

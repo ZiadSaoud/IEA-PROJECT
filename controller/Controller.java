@@ -19,8 +19,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -92,7 +95,7 @@ public class Controller implements Initializable {
     private int index =0;
     private Color AgentColor;
     private Color BorderColor;
-     private Shape Agent;
+    
     private boolean ColorChosen=false;
     private boolean BorderChosen=false;
     Image off=new Image("offnew.PNG");
@@ -247,7 +250,7 @@ public class Controller implements Initializable {
 							gridPane.getChildren().add(tiles[i][j] = new tile(j*54+bx,by+i*54,"tiles", Controller.this));
 						}
 					}
-					
+					setDefaultAgent(80,255);
 					System.out.println(bx);
 					System.out.println(by);
 					Rectangle r = new Rectangle(bx,by,width*50+(width-1)*4,height*50+(height-1)*4);
@@ -376,7 +379,7 @@ public class Controller implements Initializable {
 										@Override
 										public void handle(ActionEvent arg0) {
 											next.setStyle("-fx-background-image: none; -fx-background-color:orange");
-											next.setDurty(false);
+											next.setDirty(false);
 											for(tile p: animations.get(index)) {
 												if(p.isDurty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
@@ -545,7 +548,7 @@ public class Controller implements Initializable {
 			Agent.setStroke(Color.BLACK);
 			Agent.setStrokeWidth(2);
 		}
-		Agent.setId("agent");
+		//Agent.setId("agent");
 		gridPane.getChildren().add(Agent);
 		disable=true;
 		sourceNode = agent;

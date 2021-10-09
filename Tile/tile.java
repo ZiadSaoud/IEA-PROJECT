@@ -104,10 +104,10 @@ public class tile extends Button implements Comparable<tile>{
 	public void setW(int w) {
 		this.weight = w;
 	}
-	public boolean isDurty() {
+	public boolean isDirty() {
 		return img;
 	}
-	public void setDurty(boolean d) {
+	public void setDirty(boolean d) {
 		img=d;
 	}
 	

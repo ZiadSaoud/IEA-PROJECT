@@ -42,8 +42,14 @@ public class tile extends Button implements Comparable<tile>{
 					}
 				}
 				if(arg0.getButton() == MouseButton.SECONDARY) {
+					if(img) {
+						c.removeDestination(tile.this);
+						setStyle("-fx-background-color: black");
+						black = true;
+					}else {
 					setStyle("-fx-background-color: black");
 					black = true;
+					}
 				}
 				if(arg0.getClickCount() == 2) {
 					setStyle("-fx-background-image:none");
@@ -98,6 +104,12 @@ public class tile extends Button implements Comparable<tile>{
 	public void setW(int w) {
 		this.weight = w;
 	}
+	public boolean isDurty() {
+		return img;
+	}
+	public void setDurty(boolean d) {
+		img=d;
+	}
 	
 	@Override
 	public int compareTo(tile n) {
@@ -107,6 +119,9 @@ public class tile extends Button implements Comparable<tile>{
 			return 1;
 		}
 		return 0;
+	}
+	public void removeDust() {
+		setStyle("-fx-background-image: none");
 	}
 	
 }

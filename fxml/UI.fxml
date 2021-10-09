@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -133,7 +135,30 @@
                            <children>
                               <Pane fx:id="gridPane" prefHeight="750.0" prefWidth="800.0" />
                               <Pane fx:id="algoPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" />
-                              <Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: red;" />
+                              <Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
+                                 <children>
+                                    <CheckBox fx:id="checkSound" layoutX="103.0" layoutY="83.0" mnemonicParsing="false" />
+                                    <Label layoutX="20.0" layoutY="68.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
+                                    <Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="143.0" startX="-102.99998474121094" />
+                                    <ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../Desktop/onnew.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="TOP_CENTER" layoutX="310.0" layoutY="24.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
+                                    <Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="244.0" layoutY="174.0" prefHeight="35.0" prefWidth="250.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
+                                    <ColorPicker fx:id="ColorChooser" layoutX="275.0" layoutY="262.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
+                                    <ColorPicker fx:id="BorderColorChooser" layoutX="275.0" layoutY="310.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
+                                    <Line fx:id="ColorLine" endX="696.9999389648438" endY="0.199981689453125" layoutX="103.0" layoutY="375.0" startX="-100.0" />
+                                    <Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="427.0" prefHeight="17.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
+                                    <CheckBox fx:id="PathCheck" layoutX="73.0" layoutY="624.0" mnemonicParsing="false" text="Path Drawing" />
+                                    <ImageView fitHeight="121.0" fitWidth="132.0" layoutX="45.0" layoutY="462.0">
+                                       <image>
+                                          <Image url="@../../../../../Desktop/haha.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
                               <Pane fx:id="settingsPane1" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: blue;" />
                            </children></StackPane>
                      </children>

@@ -142,7 +142,7 @@
                                     <Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="143.0" startX="-102.99998474121094" />
                                     <ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../Desktop/onnew.png" />
+                                          <Image url="@../../images/on.PNG" />
                                        </image>
                                     </ImageView>
                                     <Label alignment="TOP_CENTER" layoutX="310.0" layoutY="24.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
@@ -151,10 +151,10 @@
                                     <ColorPicker fx:id="BorderColorChooser" layoutX="275.0" layoutY="310.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
                                     <Line fx:id="ColorLine" endX="696.9999389648438" endY="0.199981689453125" layoutX="103.0" layoutY="375.0" startX="-100.0" />
                                     <Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="427.0" prefHeight="17.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
-                                    <CheckBox fx:id="PathCheck" layoutX="73.0" layoutY="624.0" mnemonicParsing="false" text="Path Drawing" />
-                                    <ImageView fitHeight="121.0" fitWidth="132.0" layoutX="45.0" layoutY="462.0">
+                                    <CheckBox fx:id="PathCheck" layoutX="46.0" layoutY="617.0" mnemonicParsing="false" text="Path Drawing" />
+                                    <ImageView fitHeight="152.0" fitWidth="173.0" layoutX="45.0" layoutY="462.0">
                                        <image>
-                                          <Image url="@../../../../../Desktop/haha.jpg" />
+                                          <Image url="@../../images/env.png" />
                                        </image>
                                     </ImageView>
                                  </children>

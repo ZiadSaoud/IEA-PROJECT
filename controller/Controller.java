@@ -95,7 +95,6 @@ public class Controller implements Initializable {
     private int index =0;
     private Color AgentColor;
     private Color BorderColor;
-    
     private boolean ColorChosen=false;
     private boolean BorderChosen=false;
     Image off=new Image("off.PNG");

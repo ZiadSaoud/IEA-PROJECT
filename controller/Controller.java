@@ -58,7 +58,7 @@ public class Controller implements Initializable {
     private Button settingsButton;
     @FXML
     private Button aboutButton;
-    @FXML                           //New variables added by Elie
+    @FXML                           
     private CheckBox checkSound;
     @FXML
     private ImageView SoundImage;
@@ -100,8 +100,8 @@ public class Controller implements Initializable {
     Image off=new Image("off.PNG");
     Image on=new  Image("on.PNG");
     private boolean animate=false;
-	
-    
+    private ArrayList<tile> algoAnimation;
+    private int algoIndex=0;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -334,10 +334,12 @@ public class Controller implements Initializable {
 							animations = new ArrayList<ArrayList<tile>>();
 							//after for loop
 							for(tile N: destination) {
-								
 								boolean c=BFS(sourceNode,N);
 								System.out.println(c);
 								if(c) {
+									Animate(algoAnimation, s);
+									PauseTransition p = new PauseTransition(Duration.seconds(1.5));
+									s.getChildren().add(p);
 								path=backTrack(sourceNode, N);
 								animations.add(path);
 								}else {
@@ -363,7 +365,6 @@ public class Controller implements Initializable {
 												if(p.isDirty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: orange");
 												}else {
-												System.out.println("hello");
 												p.setStyle("-fx-background-color:orange");
 												}
 											}
@@ -604,14 +605,20 @@ public class Controller implements Initializable {
 					 if(cw >ccw) {
 					 e.getDest().setW(ccw);	
 					}
-					q.add(e.getDest());	
+					 if(!q.contains(e.getDest())) {
+							q.add(e.getDest());
+						}
 				 }
 			 }
 			 if(v==destination) {
+				 arr.add(v);
+				 algoAnimation = arr;
 				 return true;
 			 }else {
 				 for(Edge e: children) {
 					 if(e.getDest()==destination) {
+						 arr.add(v);
+						 algoAnimation = arr;
 						 return true;
 					 }
 				 }
@@ -650,6 +657,7 @@ public class Controller implements Initializable {
 					arr.add(removedNode);
 				}
 				for(tile test: arr) {
+					algoAnimation =arr;
 					if(test==d) {
 						return true;
 					}
@@ -696,16 +704,59 @@ public class Controller implements Initializable {
 			}
 			for(tile n:arr) {
 				if(n==d) {
+					algoAnimation = arr;
 					return true;
 				}
 			}
 			return false;
 		}
 	 
+	private boolean A_Star(tile s,tile d) {
+			ArrayList<tile> arr = new ArrayList<tile>();//visited
+			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
+			s.setW(0+s.getHeuristic(d));//initialize source with f =0.
+			s.setSpecificW(0);
+			q.add(s);
+			while(!q.isEmpty()) {
+				tile current = q.poll();
+				arr.add(current);
+				System.out.println("specific: "+current.getSpecificW());
+				if(current==d) {
+					algoAnimation = arr;
+					return true;
+				}
+				for(Edge e: ad_list.get(current)) {
+					if(arr.contains(e.getDest())) {
+						continue;
+					}
+					int cw = e.getDest().getSpecificW();
+					int ccw = current.getSpecificW()+e.getWeight();
+					int f = ccw + e.getDest().getHeuristic(d);
+					if(q.contains(e.getDest())) {
+						if(cw<ccw) {
+							continue;
+						}
+						else {
+							e.getDest().setSpecificW(ccw);
+							continue;
+						}
+					}
+					e.getDest().setW(f);
+					e.getDest().setSpecificW(ccw);
+					q.add(e.getDest());
+				}
+				
+			}
+			
+			return false;
+	 }
+	 
+	 
 	 private void resetWeights() {
 		 for(int i=0;i<width;i++) {
 			 for(int j=0;j<height;j++) {
 				 tiles[j][i].setW(Integer.MAX_VALUE);
+				 tiles[j][i].setSpecificW(Integer.MAX_VALUE);
 			 }
 		 }
 	 }
@@ -717,8 +768,8 @@ public class Controller implements Initializable {
 		 tile current = destination;
 		 while(start!=current) {
 			 ArrayList<Edge> children = ad_list.get(current);
-			 for(Edge e:children) {
-				 if(e.getWeight()+e.getDest().getW() == current.getW()) {
+			 for(Edge e:children) {//for A_Star ALGO USE: getSpecificW()   current.getSpecificW()
+				 if(e.getWeight()+e.getDest().getW()  == current.getW()) {//today
 					 path.add(e.getDest());
 					 current = e.getDest();
 					 break;
@@ -730,5 +781,46 @@ public class Controller implements Initializable {
 		}
 			return out;
 	 }
+	 private void Animate(ArrayList<tile> arr,SequentialTransition s) {
+		 for(int i=0;i<arr.size();i++) {
+			 PauseTransition p = new PauseTransition(Duration.seconds(0.1));
+			 p.setOnFinished(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+						if(algoIndex<arr.size()) {
+							if(arr.get(algoIndex).isDirty()) {
+								arr.get(algoIndex).setStyle("-fx-background-image:url('dust.png'); -fx-background-color: cyan");
+							}else {
+							arr.get(algoIndex).setStyle("-fx-background-color:cyan");
+							}
+						}
+						
+						algoIndex++;
+				}
+			});
+			 s.getChildren().add(p);
+			 if(i==arr.size()-1) {
+				 PauseTransition p1 = new PauseTransition(Duration.seconds(1.5));
+				 p1.setOnFinished(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						 algoIndex=0;
+							for(tile t:arr) {
+								if(t.isDirty()) {
+									t.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
+								}else {
+								t.setStyle("-fx-background-color:white");
+								}
+							}
+					}
+				});
+				 s.getChildren().add(p1); 
+			 }
+		 }
+		
+	 }
+	 
 	
 }

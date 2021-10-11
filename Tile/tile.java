@@ -101,6 +101,9 @@ public class tile extends Button implements Comparable<tile>{
 	public boolean getWall() {
 		return black;
 	}
+	public void setWall(boolean b) {
+		black = b;
+	}
 	public int getW() {
 		return weight;
 	}

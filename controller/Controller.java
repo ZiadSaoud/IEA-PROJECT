@@ -102,6 +102,9 @@ public class Controller implements Initializable {
     private boolean animate=false;
     private ArrayList<tile> algoAnimation;
     private int algoIndex=0;
+    private int[][] room;
+    private int agentRow;
+    private int agentColumn;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -268,9 +271,19 @@ public class Controller implements Initializable {
 							System.out.println(width);
 							System.out.println(height);
 							
+							room = new int[height][width];
+							
 							for(int w=0;w<height;w++) {
 								for(int h=0;h<width;h++) {
-									
+									//save the ENV state
+									if(tiles[w][h].getWall()) {
+										room[w][h]=0;
+									}else if(tiles[w][h].isDirty()) {
+										room[w][h]=2;
+									}else {
+										room[w][h]=1;
+									}
+									///////////////////////////////
 									if(!tiles[w][h].getWall()) {
 										//add to adj_list
 										ad_list.put(tiles[w][h], new ArrayList<Edge>());
@@ -330,25 +343,30 @@ public class Controller implements Initializable {
 							}
 							}
 							SequentialTransition s = new SequentialTransition();
-							
+							tile tempSourceNode = sourceNode;
 							animations = new ArrayList<ArrayList<tile>>();
 							//after for loop
 							for(tile N: destination) {
-								boolean c=BFS(sourceNode,N);
+								if(sourceNode==N) {//if the first Node is the destination no need to execute the algorithm
+									sourceNode.setStyle("-fx-background-image: none; -fx-background-color: white");
+									sourceNode.setDirty(false);
+									continue;
+								}
+								boolean c=Dantzig(sourceNode,N);
 								System.out.println(c);
 								if(c) {
 									Animate(algoAnimation, s);
 									PauseTransition p = new PauseTransition(Duration.seconds(1.5));
 									s.getChildren().add(p);
-								path=backTrack(sourceNode, N);
-								animations.add(path);
+								    path=backTrack(sourceNode, N);
+								    animations.add(path);
 								}else {
 									continue;
 								}
 								sourceNode=N;
 								resetWeights();
-							//animation
-							clean.setDisable(true);
+								//animation
+								clean.setDisable(true);
 							
 								for(int a=0;a<path.size()-1;a++) {
 								TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3),Agent);
@@ -365,7 +383,7 @@ public class Controller implements Initializable {
 												if(p.isDirty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: orange");
 												}else {
-												p.setStyle("-fx-background-color:orange");
+													p.setStyle("-fx-background-color:orange");
 												}
 											}
 											
@@ -384,8 +402,8 @@ public class Controller implements Initializable {
 												if(p.isDirty()) {
 													p.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
 												}else {
-												System.out.println("hello");
-												p.setStyle("-fx-background-color:white");
+													System.out.println("hello");
+													p.setStyle("-fx-background-color:white");
 												}
 											}
 											index++;
@@ -416,6 +434,26 @@ public class Controller implements Initializable {
 							}
 							}
 							s.play();
+							s.setOnFinished(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent arg0) {
+									sourceNode = tempSourceNode;
+									index=0;
+									algoIndex=0;
+									clean.setDisable(false);
+									resetWeights();
+									RedrawEnv();
+									gridPane.getChildren().remove(Agent);
+									Agent = drawAgent(agentColumn,agentRow);
+									gridPane.getChildren().add(Agent);
+									agentX=0;
+									agentY=0;
+									System.out.println(agentColumn);
+									System.out.println(agentRow);
+								}
+							});
+							
 						}
 					});
 					
@@ -519,40 +557,46 @@ public class Controller implements Initializable {
 	}
 	
 	public void setAgent(int x,int y, tile agent) {
-		gridPane.getChildren().remove(next);
+		agentRow = y;
+		agentColumn = x;
+		Agent = drawAgent(x,y);
 		gridPane.getChildren().add(clean);
-		gridPane.getChildren().remove(l);
-		Circle c = new Circle(25,Color.RED);
-		Rectangle r = new Rectangle(25,25);
-		r.setLayoutY(c.getLayoutY()-25);
-		Agent = Shape.subtract(c, r);
-		Agent.setLayoutX(x);
-		Agent.setLayoutY(y);
-		if(ColorChosen && BorderChosen) {
-			Agent.setStroke(BorderColor);
-			Agent.setStrokeWidth(2);
-		Agent.setFill(AgentColor);}
-		
-		else if(!ColorChosen && BorderChosen) {
-			Agent.setStroke(BorderColor);
-			Agent.setStrokeWidth(2);
-		Agent.setFill(Color.RED);
-		}else if(ColorChosen && !BorderChosen) {
-			Agent.setStroke(Color.BLACK);
-			Agent.setStrokeWidth(2);
-		Agent.setFill(AgentColor);
-		}else {
-		
-	
-			Agent.setFill(Color.RED);
-			Agent.setStroke(Color.BLACK);
-			Agent.setStrokeWidth(2);
-		}
-		//Agent.setId("agent");
+		gridPane.getChildren().removeAll(next,l);
 		gridPane.getChildren().add(Agent);
 		disable=true;
 		sourceNode = agent;
 	}
+	
+	private Shape drawAgent(int x,int y) {
+		Circle c = new Circle(25,Color.RED);
+		Rectangle r = new Rectangle(25,25);
+		r.setLayoutY(c.getLayoutY()-25);
+		Shape agent = Shape.subtract(c, r);
+		agent.setLayoutX(x);
+		agent.setLayoutY(y);
+		if(ColorChosen && BorderChosen) {
+			agent.setStroke(BorderColor);
+		 	agent.setStrokeWidth(3);
+		    agent.setFill(AgentColor);}
+		
+		else if(!ColorChosen && BorderChosen) {
+			agent.setStroke(BorderColor);
+			agent.setStrokeWidth(3);
+		    agent.setFill(Color.RED);
+		    
+		}else if(ColorChosen && !BorderChosen) {
+			agent.setStroke(Color.BLACK);
+			agent.setStrokeWidth(3);
+		    agent.setFill(AgentColor);
+		}else {
+			agent.setFill(Color.RED);
+			agent.setStroke(Color.BLACK);
+			agent.setStrokeWidth(3);
+		}
+		return agent;
+		
+	}
+	
 	public void setDefaultAgent(int x,int y) {
 		Circle c = new Circle(40,Color.RED);
 		Rectangle r = new Rectangle(40,40);
@@ -561,8 +605,8 @@ public class Controller implements Initializable {
 		DefaultAgent.setLayoutX(x);
 		DefaultAgent.setLayoutY(y);
 		DefaultAgent.setFill(Color.RED);
-	     DefaultAgent.setStroke(Color.BLACK);
-		DefaultAgent.setStrokeWidth(2);
+	    DefaultAgent.setStroke(Color.BLACK);
+		DefaultAgent.setStrokeWidth(3);
 		settingsPane.getChildren().add(DefaultAgent);
 	}
 	 public boolean checkAgent() {
@@ -578,7 +622,7 @@ public class Controller implements Initializable {
 	 }
 	 public void removeDestination(tile t) {
 		 if(destination.contains(t)) {
-		 destination.remove(t);
+			 destination.remove(t);
 		 }
 	 }
 	 private Line drawLine(int sx, int sy, int ex,int ey) {
@@ -590,6 +634,29 @@ public class Controller implements Initializable {
 			l.setStrokeWidth(3);
 			return l;
 	 }
+	 
+	 private void RedrawEnv() {
+		 for(int i=0;i<height;i++) {
+			 for(int j=0;j<width;j++) {
+				 if(room[i][j]==1) {
+					 tiles[i][j].setDirty(false);
+					 tiles[i][j].setWall(false);
+					 tiles[i][j].setStyle("-fx-background-color: white");
+				 }
+				 if(room[i][j]==0) {
+					 tiles[i][j].setDirty(false);
+					 tiles[i][j].setWall(true);
+					 tiles[i][j].setStyle("-fx-background-color: black");
+				 }
+				 if(room[i][j]==2) {
+					 tiles[i][j].setDirty(true);
+					 tiles[i][j].setWall(false);
+					 tiles[i][j].setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
+				 }
+			 }
+		 }
+	 }
+	 
 	 private boolean BFS(tile start,tile destination) {
 		 ArrayList<tile> arr = new ArrayList<tile>();
 		 PriorityQueue<tile> q = new PriorityQueue<tile>();
@@ -607,7 +674,7 @@ public class Controller implements Initializable {
 					}
 					 if(!q.contains(e.getDest())) {
 							q.add(e.getDest());
-						}
+					}
 				 }
 			 }
 			 if(v==destination) {
@@ -792,7 +859,7 @@ public class Controller implements Initializable {
 							if(arr.get(algoIndex).isDirty()) {
 								arr.get(algoIndex).setStyle("-fx-background-image:url('dust.png'); -fx-background-color: cyan");
 							}else {
-							arr.get(algoIndex).setStyle("-fx-background-color:cyan");
+								arr.get(algoIndex).setStyle("-fx-background-color:cyan");
 							}
 						}
 						
@@ -811,7 +878,7 @@ public class Controller implements Initializable {
 								if(t.isDirty()) {
 									t.setStyle("-fx-background-image:url('dust.png'); -fx-background-color: white");
 								}else {
-								t.setStyle("-fx-background-color:white");
+								    t.setStyle("-fx-background-color:white");
 								}
 							}
 					}

@@ -142,7 +142,7 @@
                                        </font>
                                     </Label>
                                     <ComboBox fx:id="combAlgo" layoutX="236.0" layoutY="15.0" prefHeight="25.0" prefWidth="200.0" promptText="BFS (Default)" visibleRowCount="6" />
-                                    <Label fx:id="algoName" layoutX="14.0" layoutY="59.0" prefHeight="166.0" prefWidth="395.0" text="BFS">
+                                    <Label fx:id="algoName" layoutX="14.0" layoutY="59.0" prefHeight="170.0" prefWidth="650.0" text="BFS">
                                        <font>
                                           <Font size="70.0" />
                                        </font>

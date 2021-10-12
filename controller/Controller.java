@@ -164,6 +164,7 @@ public class Controller implements Initializable {
 			}
 		});
 		
+		ColorChooser.setValue(Color.RED);
 		ColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
 				AgentColor=ColorChooser.getValue();
@@ -194,6 +195,8 @@ public class Controller implements Initializable {
 			}
 			
 		});
+		
+		BorderColorChooser.setValue(Color.BLACK);
 		BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
 				BorderColor=BorderColorChooser.getValue();

@@ -73,9 +73,9 @@ public class Controller implements Initializable {
     @FXML
     private CheckBox PathCheck;
     @FXML
-	private ComboBox<String> combAlgo;
-	@FXML
-	private Label algoName;
+    private ComboBox<String> combAlgo;
+    @FXML
+    private Label algoName;
     
 	//USER defined Variables
     private int height=0;

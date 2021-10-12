@@ -72,6 +72,10 @@ public class Controller implements Initializable {
     private Pane settingsPane;
     @FXML
     private CheckBox PathCheck;
+	@FXML
+	private ComboBox<String> combAlgo;
+	@FXML
+	private Label algoName;
     
 	//USER defined Variables
     private int height=0;
@@ -176,6 +180,17 @@ public class Controller implements Initializable {
 				}
 			}
 			
+		});
+		ObservableList<String> Alist = FXCollections.observableArrayList();
+		Alist.addAll("BFS", "Dantzig", "BellmanFord", "A_Star");
+		combAlgo.setItems(Alist);
+		combAlgo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				String s = combAlgo.getSelectionModel().getSelectedItem().toString();
+				algoName.setText(s);
+			}
 		});
 		BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
@@ -352,7 +367,22 @@ public class Controller implements Initializable {
 									sourceNode.setDirty(false);
 									continue;
 								}
-								boolean c=Dantzig(sourceNode,N);
+								boolean c = BFS(sourceNode, N);
+								switch (combAlgo.getSelectionModel().getSelectedItem().toString()) {
+								case "BFS":
+									c = BFS(sourceNode, N);
+									break;
+								case "Dantzig":
+									c = Dantzig(sourceNode, N);
+									break;
+								case "BellmanFord":
+									c = BellmanFord(sourceNode, N);
+									break;
+								case "A_Star":
+									c = A_Star(sourceNode, N);
+									break;
+								}
+								
 								System.out.println(c);
 								if(c) {
 									Animate(algoAnimation, s);

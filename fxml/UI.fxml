@@ -18,154 +18,182 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SmartAgent.Controller">
-   <children>
-      <BorderPane layoutX="320.0" layoutY="137.0" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #102f50;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fx:id="exit" fitHeight="30.0" fitWidth="30.0" layoutX="752.0" layoutY="10.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
-                     <image>
-                        <Image url="@../../images/close-window.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="7.0" prefHeight="40.0" prefWidth="280.0" text="IEA PROJECT" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="2.0">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="9.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="5.0">
-                     <image>
-                        <Image url="@../../images/artificial-intelligence.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </top>
-         <center>
-            <StackPane fx:id="UIstack" prefHeight="750.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Pane fx:id="welcomePane" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #0a4969;">
-                     <children>
-                        <Rectangle fill="WHITE" height="750.0" layoutX="600.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0" />
-                        <ComboBox fx:id="selectHeight" layoutX="851.0" layoutY="452.0" prefHeight="30.0" prefWidth="70.0" promptText="H" style="-fx-background-color: white; -fx-border-radius: 7; -fx-border-color: #0a4969; -fx-border-width: 2;" />
-                        <ComboBox fx:id="selectWidth" layoutX="850.0" layoutY="504.0" prefHeight="30.0" prefWidth="70.0" promptText="W" style="-fx-border-radius: 7; -fx-background-color: white; -fx-border-color: #0a4969; -fx-border-width: 2;" />
-                        <Button id="envbut" fx:id="createEnv" layoutX="686.0" layoutY="564.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="225.0" style="-fx-background-color: #0a4969; -fx-border-radius: 90px; -fx-alignment: center; -fx-background-radius: 90px;" text="Create Environment" textFill="WHITE">
-                           <effect>
-                              <DropShadow blurType="GAUSSIAN" height="5.91" offsetX="2.0" offsetY="2.0" radius="2.455" spread="0.2" width="5.91" />
-                           </effect>
-                           <font>
-                              <Font name="Times New Roman" size="21.0" />
-                           </font>
-                        </Button>
-                        <ImageView fitHeight="274.0" fitWidth="309.0" layoutX="656.0" layoutY="171.0">
-                           <image>
-                              <Image url="@../../images/iea.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="287.0" fitWidth="288.0" layoutX="48.0" layoutY="170.0">
-                           <image>
-                              <Image url="@../../images/image.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="31.0" layoutY="44.0" prefHeight="66.0" prefWidth="431.0" text="Welcome to the next generation" textFill="WHITE">
-                           <font>
-                              <Font name="Times New Roman" size="26.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="33.0" layoutY="95.0" prefHeight="66.0" prefWidth="425.0" text="of smart vacuum cleaners" textFill="WHITE">
-                           <font>
-                              <Font name="Times New Roman" size="26.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="610.0" layoutY="124.0" prefHeight="60.0" prefWidth="375.0" text="Let's start by creating the Environment" textFill="#0a4969">
-                           <font>
-                              <Font name="Times New Roman" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="687.0" layoutY="450.0" prefHeight="30.0" prefWidth="161.0" text="Select Height:" textFill="#0a4969">
-                           <font>
-                              <Font name="Times New Roman" size="27.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="686.0" layoutY="496.0" prefHeight="47.0" prefWidth="152.0" text="Select Width:" textFill="#0a4969">
-                           <font>
-                              <Font name="Times New Roman" size="27.0" />
-                           </font>
-                        </Label>
-                        <Line endX="346.02874755859375" endY="3.0517578125E-5" layoutX="205.0" layoutY="449.0" startX="-206.99998474121094" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="-7.5423126220703125" endY="268.0" layoutX="106.0" layoutY="482.0" startX="-40.447296142578125" startY="-128.03909301757812" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="32.163970947265625" endY="261.0" layoutX="362.0" layoutY="489.0" startX="-40.44732666015625" startY="-138.78469848632812" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="15.569061279296875" endY="264.0" layoutX="286.0" layoutY="486.0" startX="-40.202545166015625" startY="-81.76043701171875" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="-7.4800872802734375" endY="285.0" layoutX="206.0" layoutY="465.0" startX="-55.27099609375" startY="-118.5" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="287.30389404296875" endY="3.0517578125E-5" layoutX="247.0" layoutY="348.0" startX="-249.0" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="293.8128662109375" layoutX="284.0" layoutY="613.0" startX="-288.0" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="18.4251708984375" endY="27.420379638671875" layoutX="518.0" layoutY="317.0" startX="18.4251708984375" startY="-313.41571044921875" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="118.0" endY="239.0" layoutX="482.0" layoutY="511.0" startX="54.4251708984375" startY="-165.07962036132812" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="31.999969482421875" endY="363.0" layoutX="468.0" layoutY="387.0" startX="-45.460174560546875" startY="-37.499969482421875" stroke="WHITE" strokeWidth="3.0" />
-                        <Line endX="-37.454345703125" endY="137.43869018554688" layoutX="275.0" layoutY="235.0" startX="-42.673858642578125" startY="109.7412109375" stroke="WHITE" strokeWidth="3.0" />
-                     </children>
-                  </Pane>
-                  <Pane fx:id="pane2" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: gray;">
-                     <children>
-                        <VBox prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: #0a4969;">
-                           <children>
-                              <Button id="MenuButtons" fx:id="envButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Environment" textFill="WHITE">
-                                 <font>
-                                    <Font size="27.0" />
-                                 </font>
-                              </Button>
-                              <Button id="MenuButtons" fx:id="algoButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Algorithm" textFill="WHITE">
-                                 <font>
-                                    <Font size="27.0" />
-                                 </font>
-                              </Button>
-                              <Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Settings" textFill="WHITE">
-                                 <font>
-                                    <Font size="27.0" />
-                                 </font>
-                              </Button>
-                              <Button id="MenuButtons" fx:id="aboutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="About" textFill="WHITE">
-                                 <font>
-                                    <Font size="27.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <StackPane fx:id="stackG" layoutX="200.0" prefHeight="750.0" prefWidth="800.0">
-                           <children>
-                              <Pane fx:id="gridPane" prefHeight="750.0" prefWidth="800.0" />
-                              <Pane fx:id="algoPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" />
-                              <Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
+	<children>
+		<BorderPane layoutX="320.0" layoutY="137.0" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<top>
+				<AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #102f50;" BorderPane.alignment="CENTER">
+					<children>
+						<ImageView fx:id="exit" fitHeight="30.0" fitWidth="30.0" layoutX="752.0" layoutY="10.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+							<image>
+								<Image url="@../../images/close-window.png" />
+							</image>
+						</ImageView>
+						<Label layoutX="7.0" prefHeight="40.0" prefWidth="280.0" text="IEA PROJECT" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="2.0">
+							<font>
+								<Font size="36.0" />
+							</font>
+						</Label>
+						<ImageView fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="9.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="5.0">
+							<image>
+								<Image url="@../../images/artificial-intelligence.png" />
+							</image>
+						</ImageView>
+					</children>
+				</AnchorPane>
+			</top>
+			<center>
+				<StackPane fx:id="UIstack" prefHeight="750.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+					<children>
+						<Pane fx:id="welcomePane" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #0a4969;">
+							<children>
+								<Rectangle fill="WHITE" height="750.0" layoutX="600.0" stroke="#ffffff00" strokeType="INSIDE" width="400.0" />
+								<ComboBox fx:id="selectHeight" layoutX="851.0" layoutY="452.0" prefHeight="30.0" prefWidth="70.0" promptText="H" style="-fx-background-color: white; -fx-border-radius: 7; -fx-border-color: #0a4969; -fx-border-width: 2;" />
+								<ComboBox fx:id="selectWidth" layoutX="850.0" layoutY="504.0" prefHeight="30.0" prefWidth="70.0" promptText="W" style="-fx-border-radius: 7; -fx-background-color: white; -fx-border-color: #0a4969; -fx-border-width: 2;" />
+								<Button id="envbut" fx:id="createEnv" layoutX="686.0" layoutY="564.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="225.0" style="-fx-background-color: #0a4969; -fx-border-radius: 90px; -fx-alignment: center; -fx-background-radius: 90px;" text="Create Environment" textFill="WHITE">
+									<effect>
+										<DropShadow blurType="GAUSSIAN" height="5.91" offsetX="2.0" offsetY="2.0" radius="2.455" spread="0.2" width="5.91" />
+									</effect>
+									<font>
+										<Font name="Times New Roman" size="21.0" />
+									</font>
+								</Button>
+								<ImageView fitHeight="274.0" fitWidth="309.0" layoutX="656.0" layoutY="171.0">
+									<image>
+										<Image url="@../../images/iea.png" />
+									</image>
+								</ImageView>
+								<ImageView fitHeight="287.0" fitWidth="288.0" layoutX="48.0" layoutY="170.0">
+									<image>
+										<Image url="@../../images/image.png" />
+									</image>
+								</ImageView>
+								<Label layoutX="31.0" layoutY="44.0" prefHeight="66.0" prefWidth="431.0" text="Welcome to the next generation" textFill="WHITE">
+									<font>
+										<Font name="Times New Roman" size="26.0" />
+									</font>
+								</Label>
+								<Label layoutX="33.0" layoutY="95.0" prefHeight="66.0" prefWidth="425.0" text="of smart vacuum cleaners" textFill="WHITE">
+									<font>
+										<Font name="Times New Roman" size="26.0" />
+									</font>
+								</Label>
+								<Label layoutX="610.0" layoutY="124.0" prefHeight="60.0" prefWidth="375.0" text="Let's start by creating the Environment" textFill="#0a4969">
+									<font>
+										<Font name="Times New Roman" size="24.0" />
+									</font>
+								</Label>
+								<Label layoutX="687.0" layoutY="450.0" prefHeight="30.0" prefWidth="161.0" text="Select Height:" textFill="#0a4969">
+									<font>
+										<Font name="Times New Roman" size="27.0" />
+									</font>
+								</Label>
+								<Label layoutX="686.0" layoutY="496.0" prefHeight="47.0" prefWidth="152.0" text="Select Width:" textFill="#0a4969">
+									<font>
+										<Font name="Times New Roman" size="27.0" />
+									</font>
+								</Label>
+								<Line endX="346.02874755859375" endY="3.0517578125E-5" layoutX="205.0" layoutY="449.0" startX="-206.99998474121094" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="-7.5423126220703125" endY="268.0" layoutX="106.0" layoutY="482.0" startX="-40.447296142578125" startY="-128.03909301757812" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="32.163970947265625" endY="261.0" layoutX="362.0" layoutY="489.0" startX="-40.44732666015625" startY="-138.78469848632812" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="15.569061279296875" endY="264.0" layoutX="286.0" layoutY="486.0" startX="-40.202545166015625" startY="-81.76043701171875" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="-7.4800872802734375" endY="285.0" layoutX="206.0" layoutY="465.0" startX="-55.27099609375" startY="-118.5" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="287.30389404296875" endY="3.0517578125E-5" layoutX="247.0" layoutY="348.0" startX="-249.0" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="293.8128662109375" layoutX="284.0" layoutY="613.0" startX="-288.0" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="18.4251708984375" endY="27.420379638671875" layoutX="518.0" layoutY="317.0" startX="18.4251708984375" startY="-313.41571044921875" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="118.0" endY="239.0" layoutX="482.0" layoutY="511.0" startX="54.4251708984375" startY="-165.07962036132812" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="31.999969482421875" endY="363.0" layoutX="468.0" layoutY="387.0" startX="-45.460174560546875" startY="-37.499969482421875" stroke="WHITE" strokeWidth="3.0" />
+								<Line endX="-37.454345703125" endY="137.43869018554688" layoutX="275.0" layoutY="235.0" startX="-42.673858642578125" startY="109.7412109375" stroke="WHITE" strokeWidth="3.0" />
+							</children>
+						</Pane>
+						<Pane fx:id="pane2" prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: gray;">
+							<children>
+								<VBox prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: #0a4969;">
+									<children>
+										<Button id="MenuButtons" fx:id="envButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Environment" textFill="WHITE">
+											<font>
+												<Font size="27.0" />
+											</font>
+										</Button>
+										<Button id="MenuButtons" fx:id="algoButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Algorithm" textFill="WHITE">
+											<font>
+												<Font size="27.0" />
+											</font>
+										</Button>
+										<Button id="MenuButtons" fx:id="settingsButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="Settings" textFill="WHITE">
+											<font>
+												<Font size="27.0" />
+											</font>
+										</Button>
+										<Button id="MenuButtons" fx:id="aboutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="hover" text="About" textFill="WHITE">
+											<font>
+												<Font size="27.0" />
+											</font>
+										</Button>
+									</children>
+								</VBox>
+								<StackPane fx:id="stackG" layoutX="200.0" prefHeight="750.0" prefWidth="800.0">
+									<children>
+										<Pane fx:id="gridPane" prefHeight="750.0" prefWidth="800.0" />
+										<Pane fx:id="algoPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
                                  <children>
-                                    <CheckBox fx:id="checkSound" layoutX="103.0" layoutY="83.0" mnemonicParsing="false" />
-                                    <Label layoutX="20.0" layoutY="68.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
-                                    <Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="143.0" startX="-102.99998474121094" />
-                                    <ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/on.PNG" />
-                                       </image>
-                                    </ImageView>
-                                    <Label alignment="TOP_CENTER" layoutX="310.0" layoutY="24.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
-                                    <Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="244.0" layoutY="174.0" prefHeight="35.0" prefWidth="250.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
-                                    <ColorPicker fx:id="ColorChooser" layoutX="275.0" layoutY="262.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
-                                    <ColorPicker fx:id="BorderColorChooser" layoutX="275.0" layoutY="310.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
-                                    <Line fx:id="ColorLine" endX="696.9999389648438" endY="0.199981689453125" layoutX="103.0" layoutY="375.0" startX="-100.0" />
-                                    <Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="427.0" prefHeight="17.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
-                                    <CheckBox fx:id="PathCheck" layoutX="46.0" layoutY="617.0" mnemonicParsing="false" text="Path Drawing" />
-                                    <ImageView fitHeight="152.0" fitWidth="173.0" layoutX="45.0" layoutY="462.0">
-                                       <image>
-                                          <Image url="@../../images/env.png" />
-                                       </image>
-                                    </ImageView>
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="178.0" text="Choose an Algorithm:">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="combAlgo" layoutX="199.0" layoutY="15.0" prefHeight="25.0" prefWidth="232.0" promptText="BFS (Default)" visibleRowCount="6" />
+                                    <Label fx:id="algoName" layoutX="14.0" layoutY="59.0" prefHeight="166.0" prefWidth="395.0" text="BFS">
+                                       <font>
+                                          <Font size="50.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </Pane>
-                              <Pane fx:id="settingsPane1" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: blue;" />
-                           </children></StackPane>
-                     </children>
-                  </Pane>
-               </children>
-            </StackPane>
-         </center>
-      </BorderPane>
-   </children>
+										<Pane fx:id="settingsPane1" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="521.0" style="-fx-background-color: #C5C6D0;">
+                                 <children>
+                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="723.0" prefWidth="771.0" text="1. State-space Search Vacuum Cleaner Agent:&#10;The first project aims at designing and building an intelligent agent modeling an&#10;automatic vacuum cleaner (cf. examples in Ch. 2-3). We would like to model and&#10;implement the software agent governing the behavior of a vacuum cleaner operating&#10;in an environment consisting of a tiled surface made of n×m tiles (where n and m&#10;can be chosen by the user). The tiled surface can also have boundaries (walls) that&#10;cannot be traversed by the agent. A tile can have two states: clean or dirty.&#10;Dust distribution can be completely random, it can follow a certain probability law, or it&#10;can be manually defined by the user. The objective of the vacuum cleaner is to&#10;clean, automatically and autonomously, the floor of the chamber in a way to &#10;maximize performance. &#10;&#10;Hints:&#10;Students need to address the problem as a state-space search problem&#10;definition for navigating to a particular position in a maze. They can create a new&#10;search problem definition for finding a path that passes through all of the dirt tiles in&#10;the maze (multiple-goal search problem). The students can consider different&#10;heuristics, or greedy techniques, to improve the quality of the agent.">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+										<Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
+											<children>
+												<CheckBox fx:id="checkSound" layoutX="103.0" layoutY="83.0" mnemonicParsing="false" />
+												<Label layoutX="20.0" layoutY="68.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
+												<Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="143.0" startX="-102.99998474121094" />
+												<ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../../images/on.PNG" />
+													</image>
+												</ImageView>
+												<Label alignment="TOP_CENTER" layoutX="310.0" layoutY="24.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
+												<Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="244.0" layoutY="174.0" prefHeight="35.0" prefWidth="250.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
+												<ColorPicker fx:id="ColorChooser" layoutX="275.0" layoutY="262.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
+												<ColorPicker fx:id="BorderColorChooser" layoutX="275.0" layoutY="310.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
+												<Line fx:id="ColorLine" endX="696.9999389648438" layoutX="103.0" layoutY="375.0" startX="-103.0" />
+												<Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="427.0" prefHeight="17.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
+												<CheckBox fx:id="PathCheck" layoutX="46.0" layoutY="617.0" mnemonicParsing="false" text="Path Drawing" />
+												<ImageView fitHeight="152.0" fitWidth="173.0" layoutX="45.0" layoutY="462.0">
+													<image>
+														<Image url="@../../images/env.png" />
+													</image>
+												</ImageView>
+                                    <Label fx:id="AlgoName" prefHeight="78.0" prefWidth="413.0">
+                                       <font>
+                                          <Font size="36.0" />
+                                       </font>
+                                    </Label>
+											</children>
+										</Pane>
+									</children>
+								</StackPane>
+							</children>
+						</Pane>
+					</children>
+				</StackPane>
+			</center>
+		</BorderPane>
+	</children>
 </AnchorPane>

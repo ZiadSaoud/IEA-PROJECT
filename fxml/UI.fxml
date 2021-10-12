@@ -136,24 +136,15 @@
 										<Pane fx:id="gridPane" prefHeight="750.0" prefWidth="800.0" />
 										<Pane fx:id="algoPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
                                  <children>
-                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="178.0" text="Choose an Algorithm:">
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="200.0" text="Choose an Algorithm:">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="combAlgo" layoutX="199.0" layoutY="15.0" prefHeight="25.0" prefWidth="232.0" promptText="BFS (Default)" visibleRowCount="6" />
+                                    <ComboBox fx:id="combAlgo" layoutX="236.0" layoutY="15.0" prefHeight="25.0" prefWidth="200.0" promptText="BFS (Default)" visibleRowCount="6" />
                                     <Label fx:id="algoName" layoutX="14.0" layoutY="59.0" prefHeight="166.0" prefWidth="395.0" text="BFS">
                                        <font>
-                                          <Font size="50.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-										<Pane fx:id="settingsPane1" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="521.0" style="-fx-background-color: #C5C6D0;">
-                                 <children>
-                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="723.0" prefWidth="771.0" text="1. State-space Search Vacuum Cleaner Agent:&#10;The first project aims at designing and building an intelligent agent modeling an&#10;automatic vacuum cleaner (cf. examples in Ch. 2-3). We would like to model and&#10;implement the software agent governing the behavior of a vacuum cleaner operating&#10;in an environment consisting of a tiled surface made of n×m tiles (where n and m&#10;can be chosen by the user). The tiled surface can also have boundaries (walls) that&#10;cannot be traversed by the agent. A tile can have two states: clean or dirty.&#10;Dust distribution can be completely random, it can follow a certain probability law, or it&#10;can be manually defined by the user. The objective of the vacuum cleaner is to&#10;clean, automatically and autonomously, the floor of the chamber in a way to &#10;maximize performance. &#10;&#10;Hints:&#10;Students need to address the problem as a state-space search problem&#10;definition for navigating to a particular position in a maze. They can create a new&#10;search problem definition for finding a path that passes through all of the dirt tiles in&#10;the maze (multiple-goal search problem). The students can consider different&#10;heuristics, or greedy techniques, to improve the quality of the agent.">
-                                       <font>
-                                          <Font size="18.0" />
+                                          <Font size="70.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -162,31 +153,35 @@
 											<children>
 												<CheckBox fx:id="checkSound" layoutX="103.0" layoutY="83.0" mnemonicParsing="false" />
 												<Label layoutX="20.0" layoutY="68.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
-												<Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="143.0" startX="-102.99998474121094" />
+												<Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="150.0" startX="-102.99998474121094" />
 												<ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
 													<image>
 														<Image url="@../../images/on.PNG" />
 													</image>
 												</ImageView>
-												<Label alignment="TOP_CENTER" layoutX="310.0" layoutY="24.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
-												<Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="244.0" layoutY="174.0" prefHeight="35.0" prefWidth="250.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
-												<ColorPicker fx:id="ColorChooser" layoutX="275.0" layoutY="262.0" prefHeight="25.0" prefWidth="168.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
-												<ColorPicker fx:id="BorderColorChooser" layoutX="275.0" layoutY="310.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
-												<Line fx:id="ColorLine" endX="696.9999389648438" layoutX="103.0" layoutY="375.0" startX="-103.0" />
-												<Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="301.0" layoutY="427.0" prefHeight="17.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
-												<CheckBox fx:id="PathCheck" layoutX="46.0" layoutY="617.0" mnemonicParsing="false" text="Path Drawing" />
-												<ImageView fitHeight="152.0" fitWidth="173.0" layoutX="45.0" layoutY="462.0">
+												<Label alignment="TOP_CENTER" layoutX="331.0" layoutY="21.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
+												<Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="250.0" layoutY="174.0" prefHeight="35.0" prefWidth="280.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
+												<ColorPicker fx:id="ColorChooser" layoutX="301.0" layoutY="261.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
+												<ColorPicker fx:id="BorderColorChooser" layoutX="302.0" layoutY="309.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
+												<Line fx:id="ColorLine" endX="696.9999389648438" layoutX="103.0" layoutY="400.0" startX="-103.0" />
+												<Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="320.0" layoutY="427.0" prefHeight="35.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
+												<CheckBox fx:id="PathCheck" layoutX="48.0" layoutY="658.0" mnemonicParsing="false" text="Path Drawing" />
+												<ImageView fitHeight="152.0" fitWidth="173.0" layoutX="47.0" layoutY="503.0">
 													<image>
 														<Image url="@../../images/env.png" />
 													</image>
 												</ImageView>
-                                    <Label fx:id="AlgoName" prefHeight="78.0" prefWidth="413.0">
-                                       <font>
-                                          <Font size="36.0" />
-                                       </font>
-                                    </Label>
 											</children>
 										</Pane>
+										<Pane fx:id="AboutPane" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="521.0" style="-fx-background-color: #C5C6D0;">
+                                 <children>
+                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="723.0" prefWidth="771.0" text="1. State-space Search Vacuum Cleaner Agent:&#10;The first project aims at designing and building an intelligent agent modeling an&#10;automatic vacuum cleaner (cf. examples in Ch. 2-3). We would like to model and&#10;implement the software agent governing the behavior of a vacuum cleaner operating&#10;in an environment consisting of a tiled surface made of n×m tiles (where n and m&#10;can be chosen by the user). The tiled surface can also have boundaries (walls) that&#10;cannot be traversed by the agent. A tile can have two states: clean or dirty.&#10;Dust distribution can be completely random, it can follow a certain probability law, or it&#10;can be manually defined by the user. The objective of the vacuum cleaner is to&#10;clean, automatically and autonomously, the floor of the chamber in a way to &#10;maximize performance. &#10;&#10;Hints:&#10;Students need to address the problem as a state-space search problem&#10;definition for navigating to a particular position in a maze. They can create a new&#10;search problem definition for finding a path that passes through all of the dirt tiles in&#10;the maze (multiple-goal search problem). The students can consider different&#10;heuristics, or greedy techniques, to improve the quality of the agent.">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
 									</children>
 								</StackPane>
 							</children>

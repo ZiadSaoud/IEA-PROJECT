@@ -72,7 +72,7 @@ public class Controller implements Initializable {
     private Pane settingsPane;
     @FXML
     private CheckBox PathCheck;
-	@FXML
+    @FXML
 	private ComboBox<String> combAlgo;
 	@FXML
 	private Label algoName;
@@ -151,6 +151,19 @@ public class Controller implements Initializable {
 				width = Integer.parseInt(selectWidth.getSelectionModel().getSelectedItem());
 			}
 		});
+		
+		ObservableList<String> Algolist = FXCollections.observableArrayList();
+		Algolist.addAll("BFS", "Dantzig", "BellmanFord", "A_Star");
+		combAlgo.setItems(Algolist);
+		combAlgo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				String s = combAlgo.getSelectionModel().getSelectedItem().toString();
+				algoName.setText(s);
+			}
+		});
+		
 		ColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
 				AgentColor=ColorChooser.getValue();
@@ -169,9 +182,9 @@ public class Controller implements Initializable {
 				settingsPane.getChildren().add(SubAgent);
 				if(Agent!=null) {
 					if(BorderChosen) {
-				Agent.setFill(AgentColor);
-				Agent.setStroke(BorderColor);
-				Agent.setStrokeWidth(3);}
+						Agent.setFill(AgentColor);
+						Agent.setStroke(BorderColor);
+						Agent.setStrokeWidth(3);}
 					else {
 						Agent.setFill(AgentColor);
 						Agent.setStroke(Color.BLACK);
@@ -180,17 +193,6 @@ public class Controller implements Initializable {
 				}
 			}
 			
-		});
-		ObservableList<String> Alist = FXCollections.observableArrayList();
-		Alist.addAll("BFS", "Dantzig", "BellmanFord", "A_Star");
-		combAlgo.setItems(Alist);
-		combAlgo.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				String s = combAlgo.getSelectionModel().getSelectedItem().toString();
-				algoName.setText(s);
-			}
 		});
 		BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
@@ -210,13 +212,13 @@ public class Controller implements Initializable {
 				settingsPane.getChildren().add(SubAgent);
 				if(Agent!=null) {
 					if(ColorChosen) {
-				Agent.setFill(AgentColor);
-				Agent.setStroke(BorderColor);
-				Agent.setStrokeWidth(3);}
+						Agent.setFill(AgentColor);
+						Agent.setStroke(BorderColor);
+						Agent.setStrokeWidth(3);}
 					else {
-					Agent.setFill(Color.RED);
-					Agent.setStroke(BorderColor);
-					Agent.setStrokeWidth(3);
+						Agent.setFill(Color.RED);
+						Agent.setStroke(BorderColor);
+						Agent.setStrokeWidth(3);
 				}}
 				
 			}
@@ -367,7 +369,11 @@ public class Controller implements Initializable {
 									sourceNode.setDirty(false);
 									continue;
 								}
-								boolean c = BFS(sourceNode, N);
+								boolean c=false;
+								if(combAlgo.getSelectionModel().getSelectedIndex()==-1) {
+									 c = BFS(sourceNode, N);
+									System.out.println(c);
+								}else {
 								switch (combAlgo.getSelectionModel().getSelectedItem().toString()) {
 								case "BFS":
 									c = BFS(sourceNode, N);
@@ -382,8 +388,7 @@ public class Controller implements Initializable {
 									c = A_Star(sourceNode, N);
 									break;
 								}
-								
-								System.out.println(c);
+								}
 								if(c) {
 									Animate(algoAnimation, s);
 									PauseTransition p = new PauseTransition(Duration.seconds(1.5));
@@ -865,13 +870,21 @@ public class Controller implements Initializable {
 		 tile current = destination;
 		 while(start!=current) {
 			 ArrayList<Edge> children = ad_list.get(current);
-			 for(Edge e:children) {//for A_Star ALGO USE: getSpecificW()   current.getSpecificW()
-				 if(e.getWeight()+e.getDest().getW()  == current.getW()) {//today
+			 for(Edge e:children) {
+				 if(combAlgo.getSelectionModel().getSelectedIndex()==3) {
+					 if(e.getWeight()+e.getDest().getSpecificW()  == current.getSpecificW()) {
+						 path.add(e.getDest());
+						 current = e.getDest();
+						 break;
+					 }
+				 }else {
+				 if(e.getWeight()+e.getDest().getW()  == current.getW()) {
 					 path.add(e.getDest());
 					 current = e.getDest();
 					 break;
 				 }
-			 }
+				 }
+			}
 		 }
 		 while(!path.isEmpty()) {
 			out.add(path.pop());	

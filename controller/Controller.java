@@ -101,8 +101,8 @@ public class Controller implements Initializable {
     private Color BorderColor;
     private boolean ColorChosen=false;
     private boolean BorderChosen=false;
-    Image off=new Image("off.PNG");
-    Image on=new  Image("on.PNG");
+    Image off=new Image("off.png");
+    Image on=new  Image("on.png");
     private boolean animate=false;
     private ArrayList<tile> algoAnimation;
     private int algoIndex=0;

@@ -151,26 +151,22 @@
                               </Pane>
 										<Pane fx:id="settingsPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
 											<children>
-												<CheckBox fx:id="checkSound" layoutX="381.0" layoutY="91.0" mnemonicParsing="false" />
-												<Label layoutX="322.0" layoutY="78.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
+												<CheckBox fx:id="checkSound" layoutX="103.0" layoutY="83.0" mnemonicParsing="false" />
+												<Label layoutX="20.0" layoutY="68.0" prefHeight="44.0" prefWidth="61.0" style="-fx-font-size: 22;" text="Mute" />
 												<Line fx:id="settingsline" endX="696.9999389648438" layoutX="103.0" layoutY="150.0" startX="-102.99998474121094" />
-												<ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="431.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+												<ImageView fx:id="SoundImage" fitHeight="54.0" fitWidth="56.0" layoutX="149.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
 													<image>
 														<Image url="@../../images/on.PNG" />
 													</image>
 												</ImageView>
-												<Label alignment="TOP_CENTER" layoutX="343.0" layoutY="29.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
-												<Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="260.0" layoutY="173.0" prefHeight="35.0" prefWidth="280.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
-												<ColorPicker fx:id="ColorChooser" layoutX="315.0" layoutY="239.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
-												<ColorPicker fx:id="BorderColorChooser" layoutX="315.0" layoutY="290.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
-												<Line fx:id="ColorLine" endX="696.9999389648438" layoutX="103.0" layoutY="365.0" startX="-103.0" />
-												<Label fx:id="AnimationLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="333.0" layoutY="395.0" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
-												<CheckBox fx:id="PathCheck" layoutX="340.0" layoutY="470.0" mnemonicParsing="false" text="Path Drawing">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </CheckBox>
-												<ImageView fitHeight="152.0" fitWidth="173.0" layoutX="88.0" layoutY="448.0">
+												<Label alignment="TOP_CENTER" layoutX="331.0" layoutY="21.0" prefHeight="35.0" prefWidth="114.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Audio" />
+												<Label fx:id="TestingLabel" alignment="TOP_CENTER" layoutX="250.0" layoutY="174.0" prefHeight="35.0" prefWidth="280.0" style="-fx-font-size: 24; -fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7;" text="Vaccum Cleaner Color" textFill="#9c7676" />
+												<ColorPicker fx:id="ColorChooser" layoutX="301.0" layoutY="261.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: #102f50; -fx-background-color: gray;" />
+												<ColorPicker fx:id="BorderColorChooser" layoutX="302.0" layoutY="309.0" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: gray;" />
+												<Line fx:id="ColorLine" endX="696.9999389648438" layoutX="103.0" layoutY="400.0" startX="-103.0" />
+												<Label fx:id="AnimationLabel" alignment="TOP_CENTER" layoutX="320.0" layoutY="427.0" prefHeight="35.0" prefWidth="133.0" style="-fx-background-color: #102f50; -fx-text-fill: white; -fx-background-radius: 7; -fx-font-size: 24;" text="Animation" />
+												<CheckBox fx:id="PathCheck" layoutX="48.0" layoutY="658.0" mnemonicParsing="false" text="Path Drawing" />
+												<ImageView fitHeight="152.0" fitWidth="173.0" layoutX="47.0" layoutY="503.0">
 													<image>
 														<Image url="@../../images/env.png" />
 													</image>

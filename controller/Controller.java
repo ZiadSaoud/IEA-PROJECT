@@ -404,6 +404,7 @@ public class Controller implements Initializable {
 							}
 							for(int t=0;t<tempDestination.size();t++) {
 								tile  N;
+								smartDistance.setDisable(true);
 								if(!SDistance) {
 									N = destination.get(t);
 								}else {
@@ -533,10 +534,10 @@ public class Controller implements Initializable {
 									gridPane.getChildren().add(Agent);
 									agentX=0;
 									agentY=0;
+									smartDistance.setDisable(false);
 									if(SDistance) {
 									for(tile t: tempDestination) {
 										destination.add(t);
-										t.setDirty(true);
 									}
 									}
 									System.out.println(agentColumn);

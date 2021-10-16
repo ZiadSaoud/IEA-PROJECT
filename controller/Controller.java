@@ -18,6 +18,8 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
@@ -76,6 +78,10 @@ public class Controller implements Initializable {
     private ComboBox<String> combAlgo;
     @FXML
     private Label algoName;
+    @FXML
+    private CheckBox smartDistance;
+    @FXML
+    private BarChart<String, Number> chart;
     
 	//USER defined Variables
     private int height=0;
@@ -109,6 +115,9 @@ public class Controller implements Initializable {
     private int[][] room;
     private int agentRow;
     private int agentColumn;
+    private tile SuperNode;
+    private ArrayList<tile> tempDestination;
+    private boolean SDistance = false;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -195,7 +204,6 @@ public class Controller implements Initializable {
 			}
 			
 		});
-		
 		BorderColorChooser.setValue(Color.BLACK);
 		BorderColorChooser.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
@@ -245,6 +253,29 @@ public class Controller implements Initializable {
 				  }
 			  }
 		  });
+		  smartDistance.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				if(smartDistance.isSelected()) {
+					 SDistance = true;
+					 System.out.println(SDistance);
+				  }else {
+					  SDistance = false;
+					  System.out.println(SDistance);
+				  }
+				
+			}
+		});
+		  
+		chart.getXAxis().setLabel("Algorithm");
+		chart.getYAxis().setLabel("Score");
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.getData().add(new XYChart.Data<>("BFS", 40));
+		series.getData().add(new XYChart.Data<>("Bellman", 60));
+		series.getData().add(new XYChart.Data<>("Dantzig", 50));
+		series.getData().add(new XYChart.Data<>("A_Star", 10));
+		chart.getData().add(series);
 		
 		createEnv.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -361,12 +392,23 @@ public class Controller implements Initializable {
 									}
 								}
 							}
-							}
+							}//after for loop
 							SequentialTransition s = new SequentialTransition();
 							tile tempSourceNode = sourceNode;
 							animations = new ArrayList<ArrayList<tile>>();
-							//after for loop
-							for(tile N: destination) {
+							tempDestination = new ArrayList<tile>();
+							/////////////////////////////
+							SuperNode = new tile(0,0,"SuperNode",Controller.this);
+							for(tile n: destination) {
+								tempDestination.add(n);
+							}
+							for(int t=0;t<tempDestination.size();t++) {
+								tile  N;
+								if(!SDistance) {
+									N = destination.get(t);
+								}else {
+									N = getNextTile(sourceNode);
+								}
 								if(sourceNode==N) {//if the first Node is the destination no need to execute the algorithm
 									sourceNode.setStyle("-fx-background-image: none; -fx-background-color: white");
 									sourceNode.setDirty(false);
@@ -396,7 +438,7 @@ public class Controller implements Initializable {
 									Animate(algoAnimation, s);
 									PauseTransition p = new PauseTransition(Duration.seconds(1.5));
 									s.getChildren().add(p);
-								    path=backTrack(sourceNode, N);
+								    path=backTrack(sourceNode, N,false);
 								    animations.add(path);
 								}else {
 									continue;
@@ -469,6 +511,10 @@ public class Controller implements Initializable {
 									animation.setToX(agentX);
 									s.getChildren().add(animation);
 								}
+								if(t==tempDestination.size()-1 && a==path.size()-2) {
+							    	PauseTransition p1 = new PauseTransition(Duration.seconds(3));
+									s.getChildren().add(p1);
+								}
 							}
 							}
 							s.play();
@@ -487,6 +533,12 @@ public class Controller implements Initializable {
 									gridPane.getChildren().add(Agent);
 									agentX=0;
 									agentY=0;
+									if(SDistance) {
+									for(tile t: tempDestination) {
+										destination.add(t);
+										t.setDirty(true);
+									}
+									}
 									System.out.println(agentColumn);
 									System.out.println(agentRow);
 								}
@@ -866,7 +918,7 @@ public class Controller implements Initializable {
 		 }
 	 }
 	 
-	 private ArrayList<tile> backTrack(tile start,tile destination){
+	 private ArrayList<tile> backTrack(tile start,tile destination, boolean distance){
 		 ArrayList<tile> out = new ArrayList<tile>();
 		 Stack<tile> path = new Stack<tile>();
 		 path.add(destination);
@@ -874,7 +926,7 @@ public class Controller implements Initializable {
 		 while(start!=current) {
 			 ArrayList<Edge> children = ad_list.get(current);
 			 for(Edge e:children) {
-				 if(combAlgo.getSelectionModel().getSelectedIndex()==3) {
+				 if(combAlgo.getSelectionModel().getSelectedIndex()==3 && !distance) {
 					 if(e.getWeight()+e.getDest().getSpecificW()  == current.getSpecificW()) {
 						 path.add(e.getDest());
 						 current = e.getDest();
@@ -893,6 +945,48 @@ public class Controller implements Initializable {
 			out.add(path.pop());	
 		}
 			return out;
+	 }
+	 
+	 private tile getNextTile(tile source) {
+		 if(!ad_list.containsKey(SuperNode)) {
+			 ad_list.put(SuperNode, new ArrayList<Edge>());
+			 for(tile n: destination) {
+					ad_list.get(n).add(new Edge(SuperNode,0));
+					ad_list.get(SuperNode).add(new Edge(n,0));
+				}
+		 }
+		 boolean c = BFS(source,SuperNode);
+		 System.out.println("Problem is not here: "+c);
+		 if(c) {
+			 System.out.println("before");
+			 ArrayList<tile> path = backTrack(source, SuperNode,true);
+			 System.out.println("after");
+			 resetWeights();
+			 SuperNode.setW(Integer.MAX_VALUE);
+			 tile returnedTile = path.get(path.size()-2);
+			 for(int e=0;e<destination.size();e++) {
+				ArrayList<Edge> children = ad_list.get(destination.get(e));
+					for(int i=0;i<children.size();i++) {
+						if(children.get(i).getDest()==SuperNode) {
+							children.remove(i);
+						}
+					}
+			 }
+			 ArrayList<Edge> children = ad_list.get(SuperNode);
+			 for(int j=0;j<children.size();j++) {
+					 children.remove(j);
+			 }
+			 for(tile n: destination) {
+				 if(n==returnedTile) {
+					 System.out.println("Right destination");
+					 destination.remove(returnedTile);
+					 ad_list.remove(SuperNode);
+					 return returnedTile; 
+				 }
+			 }
+			 System.out.println("did not return the right one");
+		 }
+		 return source;
 	 }
 	 private void Animate(ArrayList<tile> arr,SequentialTransition s) {
 		 for(int i=0;i<arr.size();i++) {

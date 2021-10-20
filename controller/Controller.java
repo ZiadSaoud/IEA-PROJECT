@@ -107,8 +107,8 @@ public class Controller implements Initializable {
     private Color BorderColor;
     private boolean ColorChosen=false;
     private boolean BorderChosen=false;
-    Image off=new Image("off.png");
-    Image on=new  Image("on.png");
+    private Image off=new Image("off.png");
+    private Image on=new  Image("on.png");
     private boolean animate=false;
     private ArrayList<tile> algoAnimation;
     private int algoIndex=0;
@@ -162,7 +162,7 @@ public class Controller implements Initializable {
 		});
 		
 		ObservableList<String> Algolist = FXCollections.observableArrayList();
-		Algolist.addAll("BFS", "Dantzig", "BellmanFord", "A_Star");
+		Algolist.addAll("BFS", "Dantzig", "BellmanFord", "A_Star", "Greedy Best First Search");
 		combAlgo.setItems(Algolist);
 		combAlgo.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -432,6 +432,11 @@ public class Controller implements Initializable {
 									break;
 								case "A_Star":
 									c = A_Star(sourceNode, N);
+									System.out.println(c);
+									break;
+								case "Greedy Best First Search":
+									c = GBFS(sourceNode, N);
+									System.out.println(c);
 									break;
 								}
 								}
@@ -869,7 +874,7 @@ public class Controller implements Initializable {
 			return false;
 		}
 	 
-	private boolean A_Star(tile s,tile d) {
+	 private boolean A_Star(tile s,tile d) {
 			ArrayList<tile> arr = new ArrayList<tile>();//visited
 			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
 			s.setW(0+s.getHeuristic(d));//initialize source with f =0.
@@ -901,7 +906,9 @@ public class Controller implements Initializable {
 					}
 					e.getDest().setW(f);
 					e.getDest().setSpecificW(ccw);
-					q.add(e.getDest());
+					if(!q.contains(e.getDest())) {
+						q.add(e.getDest());
+					}
 				}
 				
 			}
@@ -909,6 +916,38 @@ public class Controller implements Initializable {
 			return false;
 	 }
 	 
+	 private boolean GBFS(tile s,tile d) {
+		 	ArrayList<tile> arr = new ArrayList<tile>();//visited
+			PriorityQueue<tile> q = new PriorityQueue<tile>();//frontier
+			s.setW(0+s.getHeuristic(d));//initialize source with f =0.
+			s.setSpecificW(0);
+			q.add(s);
+			while(!q.isEmpty()) {
+			tile current = q.poll();
+			if(current == d) {
+				algoAnimation =arr;
+				return true;
+			}else {
+				for(Edge e: ad_list.get(current)) {
+					if(arr.contains(e.getDest())) {
+						continue;
+					}
+					int cw = e.getDest().getSpecificW();
+					int ccw = current.getSpecificW()+e.getWeight();
+					int f = e.getDest().getHeuristic(d);
+						if(cw>ccw) {
+							e.getDest().setSpecificW(ccw);
+						}
+					e.getDest().setW(f);
+					if(!q.contains(e.getDest())) {
+						q.add(e.getDest());
+					}
+				}
+			}
+			arr.add(current);	
+			}
+		 return false;
+	 }
 	 
 	 private void resetWeights() {
 		 for(int i=0;i<width;i++) {
@@ -927,7 +966,7 @@ public class Controller implements Initializable {
 		 while(start!=current) {
 			 ArrayList<Edge> children = ad_list.get(current);
 			 for(Edge e:children) {
-				 if(combAlgo.getSelectionModel().getSelectedIndex()==3 && !distance) {
+				 if(combAlgo.getSelectionModel().getSelectedIndex()>=3 && !distance) {
 					 if(e.getWeight()+e.getDest().getSpecificW()  == current.getSpecificW()) {
 						 path.add(e.getDest());
 						 current = e.getDest();

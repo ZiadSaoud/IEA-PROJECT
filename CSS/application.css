@@ -54,3 +54,18 @@
 	-fx-effect: dropshadow(gaussian,black,10,0.4,0,0);
 	-fx-stroke: lightgray;
 }
+#sensor{
+	-fx-background-color: #020302;
+	-fx-opacity: 0.2;
+}
+.chart-series-line {    
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+.default-color0.chart-line-symbol {
+	-fx-background-color: transparent, black;
+}
+.default-color0.chart-series-line { 
+	-fx-stroke: red;
+}
+

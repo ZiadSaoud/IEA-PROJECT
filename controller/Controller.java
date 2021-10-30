@@ -175,6 +175,7 @@ public class Controller implements Initializable {
     private MediaPlayer mp;
     private boolean sound=false;
     private tile tempSourceNode;
+    private Timer t2;
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -855,7 +856,7 @@ public class Controller implements Initializable {
 									System.out.println(agentRow);
 								}
 							});
-							}else {
+							}else if(env==1) {
 								/*
 								timeLabel =new Label();
 								timeLabel.setLayoutX(bx+5);
@@ -867,6 +868,19 @@ public class Controller implements Initializable {
 								//timeline.play();
 								t.start();
 								spinner.setDisable(true);
+								
+							}else {
+							
+								
+								t2.start();
+								
+							
+							
+								
+								
+								
+								
+								
 								
 							}
 						}
@@ -937,12 +951,14 @@ public class Controller implements Initializable {
 											Pseries.getData().add(new XYChart.Data<>(time,percentage));
 										}else {//ENV = 2
 											
+											Nseries.getData().add(new XYChart.Data<>(time,percentage));
 										}
 						    	    }
 									int minutes = time/60;
 									int seconds = time - (minutes*60);
-									if(minutes==spinner.getValue() && ENV == 1) {
+									if(minutes==spinner.getValue() && ENV == 1 ) {
 										t.stop();
+										
 										timeline.stop();
 										sourceNode = tempSourceNode;
 										clean.setDisable(false);
@@ -1219,6 +1235,83 @@ public class Controller implements Initializable {
 							
 						
 					});
+					 
+					 t2 = new Timer(1000,new ActionListener() {
+							
+							@Override
+							public void actionPerformed(java.awt.event.ActionEvent e) {
+								TranslateTransition t1 = new TranslateTransition(Duration.seconds(0.5),Agent);
+							
+							
+								double up=2.5;
+								double down=5;
+								double left=7.5;
+								double right=10;
+								boolean choose=false;
+								do {
+									double rand = Math.random()*10;
+								if(rand<=up) {
+									if(sourceNode.getUp()!=null) {
+										agentY = agentY-54;
+										t1.setToY(agentY);
+										sourceNode=sourceNode.getUp();
+										choose=true;
+								}}
+								if(rand>up && rand<=down) {
+									if(sourceNode.getDown()!=null) {
+										agentY = agentY+54;
+										t1.setToY(agentY);
+										sourceNode=sourceNode.getDown();
+										choose=true;
+								}}
+								
+								if(rand>down && rand<=left) {
+									if(sourceNode.getLeft()!=null) {
+										agentX = agentX-54;
+										t1.setToX(agentX);
+										sourceNode=sourceNode.getLeft();
+										choose=true;
+								}}
+								
+								if(rand>left && rand<=right) {
+									if(sourceNode.getRight()!=null) {
+										agentX = agentX+54;
+										t1.setToX(agentX);
+										sourceNode=sourceNode.getRight();
+										choose=true;
+								}}}while(!choose);
+								
+								t1.play();
+								PauseTransition p1 = new PauseTransition(Duration.seconds(0.5));
+								t1.setOnFinished(new EventHandler<ActionEvent>() {
+
+									@Override
+									public void handle(ActionEvent arg0) {
+										if(sourceNode.isDirty()) {
+											m = new Media(f.toURI().toString());
+											mp = new MediaPlayer(m);
+											mp.play();
+										
+											sourceNode.setDirty(false);
+											sourceNode.setStyle("-fx-background-image: none");
+											NDtiles--;
+											p1.play();
+											
+										}
+										
+									}
+									
+									
+								});
+								
+									
+							}});
+									
+								
+								
+								
+								
+							
 						
 					next = new Button("Next");
 					next.setId("next");

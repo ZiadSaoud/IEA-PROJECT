@@ -869,6 +869,7 @@ public class Controller implements Initializable {
 								if(combAlgo.getSelectionModel().getSelectedIndex()==4) {
 									//////////////////////////////
 									ArrayList<tile> path = SA_TSP(sourceNode,5000,10000);
+									if(path.size()>0) {
 									ArrayList<tile> GPath = new ArrayList<tile>();
 									ArrayList<tile> APath = new ArrayList<tile>();
 									if(path.get(0)==sourceNode) {
@@ -974,6 +975,7 @@ public class Controller implements Initializable {
 											timeline.stop();
 										}
 									});
+									}
 								}else {
 							SequentialTransition s = new SequentialTransition();
 							animations = new ArrayList<ArrayList<tile>>();
@@ -2299,8 +2301,12 @@ public class Controller implements Initializable {
 			 prevPath.add(t);
 		 }
 		 if(prevPath.size()==2) {
-			 BFS(source, destination.get(0));
-			 prevPath=backTrack(source, destination.get(0), false);
+			 boolean c = BFS(source, destination.get(0));
+			 if(c) {
+				 prevPath=backTrack(source, destination.get(0), false);
+			 }else {
+				 prevPath.removeAll(prevPath);
+			 }
 			 return prevPath;
 		 }
 		 int prevCost = 0;
@@ -2442,18 +2448,14 @@ public class Controller implements Initializable {
 										
 									}else {
 									    t.setStyle("-fx-background-color:white");
-									    
 									}
-									
 								}
-								
 						}
 					});
 					 s.getChildren().add(p1); 
 				 }
 				 
 			}
-			 
 			 
 		 }else {
 			 for(int i=0;i<arr.size();i++) {
@@ -2469,7 +2471,6 @@ public class Controller implements Initializable {
 									arr.get(algoIndex).setStyle("-fx-background-color:cyan");
 								}
 							}
-							
 							algoIndex++;
 					}
 				});
@@ -2495,6 +2496,5 @@ public class Controller implements Initializable {
 				 }
 			 } 
 		 }
-		 
 	 }
 }

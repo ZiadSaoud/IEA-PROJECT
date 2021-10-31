@@ -16,6 +16,7 @@ public class tile extends Button implements Comparable<tile>{
 	private tile right = null;
 	private int weight=Integer.MAX_VALUE;
 	private int SW=Integer.MAX_VALUE;
+	private int w1=Integer.MAX_VALUE;
 	
 	public tile(int x,int y, String id, Controller c) {
 		X=x;
@@ -109,12 +110,19 @@ public class tile extends Button implements Comparable<tile>{
 	public void setW(int w) {
 		this.weight = w;
 	}
+	public int getW1() {
+		return w1;
+	}
+	public void setW1(int w1) {
+		this.w1 = w1;
+	}
 	public boolean isDirty() {
 		return img;
 	}
 	public void setDirty(boolean d) {
 		img=d;
 	}
+	
 	//today
 	public int getHeuristic(tile destination,int bx,int by) {
 		int h = Math.abs(X - destination.getX())+Math.abs(Y-destination.getY());//Manhattan Distance
@@ -129,7 +137,6 @@ public class tile extends Button implements Comparable<tile>{
 	public int getSpecificW() {
 		return SW;
 	}
-	
 	
 	@Override
 	public int compareTo(tile n) {

@@ -585,7 +585,7 @@ public class Controller implements Initializable {
 					smartDistance.setVisible(false);
 					dustCheck.setVisible(false);
 					combAlgo.setVisible(false);
-					algoPicker.setText("Time (sec):");
+					algoPicker.setText("Time (min):");
 					spinner.setLayoutX(202);
 					slider.setVisible(false);
 					c.setVisible(false);

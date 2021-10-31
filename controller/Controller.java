@@ -866,7 +866,7 @@ public class Controller implements Initializable {
 							NDtiles = destination.size();
 							int env = envType.getSelectionModel().getSelectedIndex();
 							if(env==-1 || env == 0) {
-								if(combAlgo.getSelectionModel().getSelectedIndex()==4) {
+								if(combAlgo.getSelectionModel().getSelectedIndex()==4 && destination.size()>0) {
 									//////////////////////////////
 									ArrayList<tile> path = SA_TSP(sourceNode,5000,10000);
 									if(path.size()>0) {

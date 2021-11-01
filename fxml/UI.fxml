@@ -32,7 +32,7 @@
 								<Image url="@../../images/close-window.png" />
 							</image>
 						</ImageView>
-						<Label layoutX="7.0" prefHeight="40.0" prefWidth="280.0" text="IEA PROJECT" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="2.0">
+						<Label layoutX="47.0" layoutY="-1.0" prefHeight="40.0" prefWidth="280.0" text="IEA PROJECT" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="-1.0">
 							<font>
 								<Font size="36.0" />
 							</font>
@@ -233,11 +233,41 @@
                                     <CheckBox fx:id="AlgoCheck" layoutX="529.0" layoutY="699.0" mnemonicParsing="false" text="Algorithm Animation" />
 											</children>
 										</Pane>
-										<Pane fx:id="AboutPane" layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="521.0" style="-fx-background-color: #C5C6D0;">
+										<Pane fx:id="AboutPane" layoutX="10.0" layoutY="10.0" prefHeight="694.0" prefWidth="800.0" style="-fx-background-color: #C5C6D0;">
                                  <children>
-                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="723.0" prefWidth="771.0" text="1. State-space Search Vacuum Cleaner Agent:&#10;The first project aims at designing and building an intelligent agent modeling an&#10;automatic vacuum cleaner (cf. examples in Ch. 2-3). We would like to model and&#10;implement the software agent governing the behavior of a vacuum cleaner operating&#10;in an environment consisting of a tiled surface made of n×m tiles (where n and m&#10;can be chosen by the user). The tiled surface can also have boundaries (walls) that&#10;cannot be traversed by the agent. A tile can have two states: clean or dirty.&#10;Dust distribution can be completely random, it can follow a certain probability law, or it&#10;can be manually defined by the user. The objective of the vacuum cleaner is to&#10;clean, automatically and autonomously, the floor of the chamber in a way to &#10;maximize performance. &#10;&#10;Hints:&#10;Students need to address the problem as a state-space search problem&#10;definition for navigating to a particular position in a maze. They can create a new&#10;search problem definition for finding a path that passes through all of the dirt tiles in&#10;the maze (multiple-goal search problem). The students can consider different&#10;heuristics, or greedy techniques, to improve the quality of the agent.">
+                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="53.0" prefHeight="684.0" prefWidth="771.0" text="This project shows different implementations of a vaccuum cleaning&#10;agent that finds its path to dirty tiles and tries to clean the room.&#10;In this projects, three classes of agents with variable visibility were&#10;developed and their performance was evaluated regarding the&#10;percentage of clean tiles in a 5 second period. For the first class of&#10;agents, the agent had fully observable environments and their path&#10;finding algorithms were implemented using BFS, Dantizg, Bellman Ford,&#10;A*, Greedy-BFS, TSP, and Bidirectional search. For the second class of&#10;agents with partially observable environments, the path finding&#10;algorithm was implemented using a stochastic agent. For the third&#10;approach with the agent with unobservable environment, the agent&#10;was implemented using a random path finding approach.&#10;This project aims to find the optimal path for cleaning the room&#10;in a timely and effecient manner.&#10;&#10;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="207.0" text="Abstract:" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="557.0" prefHeight="46.0" prefWidth="199.0" text="Instructions:" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="594.0" prefHeight="41.0" prefWidth="750.0" text="Escape Button -&gt; Reset Enviroment">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="629.0" prefHeight="41.0" prefWidth="750.0" text="Left Click         -&gt; Place Dirt">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="664.0" prefHeight="41.0" prefWidth="750.0" text="Right Click       -&gt; Place Wall">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="699.0" prefHeight="41.0" prefWidth="750.0" text="Double Click    -&gt; Reset Tile">
+                                       <font>
+                                          <Font size="24.0" />
                                        </font>
                                     </Label>
                                  </children>
